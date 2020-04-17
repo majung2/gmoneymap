@@ -1,0 +1,23 @@
+*{
+    box-sizing: border-box;
+}
+html{
+    height:100%
+}
+body{
+    margin: 10px 5px;
+    text-align: center;
+    height:100%
+}
+header{
+    padding: 50px;
+}
+main{
+    height:350px;
+}
+
+footer{
+    font-size: 10px;
+    bottom: 0%;
+
+}

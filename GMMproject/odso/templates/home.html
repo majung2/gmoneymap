@@ -1,7 +1,32 @@
+{% load static %}
 <!DOCTYPE html>
+<html>
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, ...">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 </head>
 <body>
-    하이
+    <header>
+        <h3>경기도 지역화폐 가맹점 지도</h3>
+        <h1>어디써</h1>
+    </header>
+
+    <main>
+        <div class="search">
+            <h3>주변 가맹점을 찾아보세요</h3>
+            <h3>현 위치로 주변 가맹점 보기</h3>
+        </div>
+        <div class="link">
+            <h4>아직 재난기본소득 신청을 안 하셨나요?</h4>
+            <a href="https://basicincome.gg.go.kr/">경기도 재난기본소득 신청 바로가기</a><br>
+            <a href="http://www.gmoney.or.kr/">경기도 지역화폐 홈페이지</a>
+        </div>
+    </main>
+    
+    <footer>
+        <p>만든사람들: 이미정 구도원 이지윤<br>Copyrights 2020 © G_cos</p>
+    </footer>
+
 </body>
+</html>
