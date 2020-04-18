@@ -6,22 +6,6 @@
     <title>오디써</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/mapstyle.css' %}">
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3ee8e0692190c94bbe63d42f7dbe7aeb"></script>
-    <script src="http://code.jquery.com/jquery-1.11.0.js"></script>
-    <script>
-        $(function() {        
-            // Geolocation API에 액세스할 수 있는지를 확인
-            if (navigator.geolocation) {
-                //위치 정보를 얻기
-                navigator.geolocation.getCurrentPosition (function(pos) {
-                    var latitude = pos.coords.latitude;
-                    var longitude = pos.coords.longitude;
-                    alert("현재 위치는 : " + latitude + ", "+ longitude);
-                });
-            } else {
-                alert("이 브라우저에서는 Geolocation이 지원되지 않습니다.")
-            }
-        });
-    </script>
 </head>
 <body>  
 
@@ -34,9 +18,13 @@
     </div> 
 
     <script>
+        temp=location.href.split("?")
+        data=temp[1].split(",")
+        lat = data[0]
+        lon = data[1]
         var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
             mapOption = { 
-                center: new kakao.maps.LatLng(37.2750507,127.009447), // 지도의 중심좌표
+                center: new kakao.maps.LatLng(lat,lon), // 지도의 중심좌표 경기도청: 37.2750507,127.009447
                 level: 3 // 지도의 확대 레벨
             };
         

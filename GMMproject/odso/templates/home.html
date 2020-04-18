@@ -6,6 +6,7 @@
     <title>오디써</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, ...">
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"> 
+    <script src="http://code.jquery.com/jquery-1.11.0.js"></script>
 </head>
 <body>
     <header>
@@ -18,6 +19,24 @@
         <div class="search">
             <a href="{% url 'map' %}">주변 가맹점을 찾아보세요</a><br>
         </div>
+
+        <input type="button" id="button1" onclick="currentloc();" value="주변 가맹점 보기">
+        <script>
+            function currentloc() {        
+                // Geolocation API에 액세스할 수 있는지를 확인
+                if (navigator.geolocation) {
+                    //위치 정보를 얻기
+                    navigator.geolocation.getCurrentPosition (function(pos) {
+                        var latitude = pos.coords.latitude;
+                        var longitude = pos.coords.longitude;
+                        location.href="map?"+latitude+","+longitude;
+                    });
+                } else {
+                    alert("이 브라우저에서는 Geolocation이 지원되지 않습니다.")
+                }
+            }
+        </script>
+
 
 
         <div class="select">
