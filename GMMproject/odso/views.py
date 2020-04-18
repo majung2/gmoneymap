@@ -6,3 +6,6 @@ def home(request):
 
 def map(request):
     return render(request, 'map.html')
+
+def map2(request):
+    return render(request, 'map2.html')
