@@ -5,9 +5,7 @@
     <meta charset="utf-8">
     <title>오디써</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, ...">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-    <script src="http://code.jquery.com/jquery-1.11.0.js"></script>    
-    
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"> 
 </head>
 <body>
     <header>
@@ -19,31 +17,11 @@
     <main>
         <div class="search">
             <a href="{% url 'map' %}">주변 가맹점을 찾아보세요</a><br>
-            <a href="{% url 'map' %}">현 위치로 주변 가맹점 보기</a>
         </div>
 
 
         <div class="select">
             <div class="location">
-                <input type="button" id="button1" onclick="currentLoca();" value="현 위치 선택하기" />
-                <script>
-                function currentLoca() {
-                    // Geolocation API에 액세스할 수 있는지를 확인
-                    if (navigator.geolocation) {
-                        //위치 정보를 얻기
-                        navigator.geolocation.getCurrentPosition (function(pos) {
-                            $('#latitude').html(pos.coords.latitude);     // 위도
-                            $('#longitude').html(pos.coords.longitude); // 경도
-                        });
-                    } else {
-                        alert("이 브라우저에서는 Geolocation이 지원되지 않습니다.")
-                    }
-                }
-                </script>
-                <br>
-                위도:<span id="latitude"></span>
-                경도:<span id="longitude"></span>
-                
             </div>
         </div>
         
