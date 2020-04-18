@@ -3,14 +3,17 @@
 <html>
 <head>
     <meta charset="utf-8">
+    <title>오디써</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, ...">
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-    <title>오디써</title>
+    <script src="http://code.jquery.com/jquery-1.11.0.js"></script>    
+    
 </head>
 <body>
     <header>
         <h3>경기도 지역화폐 가맹점 지도</h3>
         <h1>오디써</h1>
+        <p>경기도 지역화폐<br>어디에 써? 어디있어?</p>
     </header>
 
     <main>
@@ -18,14 +21,42 @@
             <a href="{% url 'map' %}">주변 가맹점을 찾아보세요</a><br>
             <a href="{% url 'map' %}">현 위치로 주변 가맹점 보기</a>
         </div>
+
+
+        <div class="select">
+            <div class="location">
+                <input type="button" id="button1" onclick="currentLoca();" value="현 위치 선택하기" />
+                <script>
+                function currentLoca() {
+                    // Geolocation API에 액세스할 수 있는지를 확인
+                    if (navigator.geolocation) {
+                        //위치 정보를 얻기
+                        navigator.geolocation.getCurrentPosition (function(pos) {
+                            $('#latitude').html(pos.coords.latitude);     // 위도
+                            $('#longitude').html(pos.coords.longitude); // 경도
+                        });
+                    } else {
+                        alert("이 브라우저에서는 Geolocation이 지원되지 않습니다.")
+                    }
+                }
+                </script>
+                <br>
+                위도:<span id="latitude"></span>
+                경도:<span id="longitude"></span>
+                
+            </div>
+        </div>
+        
         <div class="link">
             <h4>아직 재난기본소득 신청을 안 하셨나요?</h4>
-            <a href="https://basicincome.gg.go.kr/">경기도 재난기본소득 신청 바로가기</a><br>
-            <a href="http://www.gmoney.or.kr/">경기도 지역화폐 홈페이지</a>
+            <a href="http://www.gmoney.or.kr/">경기도 지역화폐 홈페이지 바로가기</a>
         </div>
     </main>
     
     <footer>
+        <div class="cities">
+            <p>로고로고로고</p>
+        </div>
         <p>본 서비스는 모바일에 최적화되어 있습니다.</p>
         <p>만든사람들: 이미정 구도원 이지윤<br>Copyrights 2020 © G_cos</p>
     </footer>
