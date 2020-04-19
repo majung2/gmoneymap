@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>오디써</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, ...">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"> <!--전체적용-->
     <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css"> <!--나눔스퀘어 폰트-->
     <script src="http://code.jquery.com/jquery-1.11.0.js"></script> <!--현위치 받기-->
@@ -12,8 +12,8 @@
 
 <body>
     <header>
-        <h3>경기도 지역화폐 가맹점 지도</h3>
-        <h1>오디써</h1>
+        <img src="{% static 'image/gmlogo.png' %}"> 
+        <img src="{% static 'image/logo.png' %}"> 
         <p>경기도 지역화폐<br>어디에 써? 어디있어?</p>
     </header>
 
@@ -22,8 +22,9 @@
             <div class="search">
             </div>
     
-            <div class="map">
-                <button type="button" id="button1" onclick="currentloc();"><img src="https://w7.pngwing.com/pngs/770/688/png-transparent-computer-icons-google-map-maker-map-marker-angle-black-map-thumbnail.png" width="30px"></button>
+            <div class="map"  onclick="currentloc();">
+                <img src="https://w7.pngwing.com/pngs/770/688/png-transparent-computer-icons-google-map-maker-map-marker-angle-black-map-thumbnail.png" width="70px">
+                <p>내 주변 가맹점 정보보기</p>
                 <script>
                     function currentloc() {        
                         // Geolocation API에 액세스할 수 있는지를 확인
