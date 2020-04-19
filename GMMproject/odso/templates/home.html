@@ -6,7 +6,7 @@
     <title>오디써</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, ...">
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"> 
-    <script src="http://code.jquery.com/jquery-1.11.0.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.0.js"></script> <!--현위치 받기-->
 </head>
 <body>
     <header>
@@ -31,9 +31,11 @@
                         var longitude = pos.coords.longitude;
                         location.href="map?"+latitude+","+longitude;
                     });
-                } else {
-                    alert("이 브라우저에서는 Geolocation이 지원되지 않습니다.")
+                } else { // 디폴트위치: 경기도청
+                    alert("현 위치를 받을 수 없습니다.")
+                    location.href="map?37.275050,127.009447";
                 }
+                
             }
         </script>
 
