@@ -8,6 +8,14 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"> 
     <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css"> <!--나눔스퀘어 폰트-->
     <script src="http://code.jquery.com/jquery-1.11.0.js"></script> <!--현위치 받기-->
+    <script>
+        function isMobile() {
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        }
+        if (isMobile()){} else {
+            document.write('<p id="mobile">본 서비스는 모바일에 최적화되어 있습니다.</p>')
+        }
+    </script>
 </head>
 
 <body>
@@ -43,19 +51,17 @@
             </div>
         </div>
         
-        <div class="main2">
-            <p>아직 재난기본소득 신청을 안 하셨나요?</p>
-            <a href="http://www.gmoney.or.kr/"><img src="{% static 'image/linkbutton.png' %}" width="200px"></a>
-        </div>
-        
 
     </main>
     
     <footer>
+        <div class="main2">
+            <p>아직 재난기본소득 신청을 안 하셨나요?</p>
+            <a href="http://www.gmoney.or.kr/"><img src="{% static 'image/linkbutton.png' %}" width="200px"></a>
+        </div>
         <div class="cities">
             <p>로고로고로고</p>
         </div>
-        <p>본 서비스는 모바일에 최적화되어 있습니다.</p>
         <p>만든사람들: 이미정 구도원 이지윤<br>Copyrights 2020 © G_cos</p>
     </footer>
 </body>
