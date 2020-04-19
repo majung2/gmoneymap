@@ -4,12 +4,15 @@
 }
 .nanumsquare { font-family: 'NanumSquare', sans-serif !important; }
 
+p{
+    margin:10px 0;
+}
+
 html{
     position: relative;
     min-height:100%;
     margin: 0;
     min-width: 100%;
-    
 }
 
 body{
@@ -18,22 +21,36 @@ body{
     margin: 0 0;
     position: absolute;
     text-align: center;
-    color:#005dac;
+    font-size: 15px;
+    color:white; /* #005dac*/
+    /* background-color: white;  */
+    background-color: #002c52;
 }
 
 
 header{
-    padding: 50px;
+    margin: 10%  0;
+    padding: 0 0;
+}
+.title{
+    margin:5% 0;
 }
 main{
-    height:350px;
+    height:70%;
 }
 .main1{
-    height:80%;
+    margin:5% 0;
+    height:60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
 .main2{
     height:20%;
+    font-size: 10px;
 }
+
 
 
 footer{
@@ -41,7 +58,7 @@ footer{
     font-size: 10px;
     bottom: 0;
     width:100%;
-    color:gray;
+    color:rgb(184, 184, 184);
 }
 
 /* a tag*/

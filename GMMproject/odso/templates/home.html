@@ -5,26 +5,24 @@
     <meta charset="utf-8">
     <title>오디써</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"> <!--전체적용-->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"> 
     <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css"> <!--나눔스퀘어 폰트-->
     <script src="http://code.jquery.com/jquery-1.11.0.js"></script> <!--현위치 받기-->
 </head>
 
 <body>
     <header>
-        <img src="{% static 'image/gmlogo.png' %}"> 
-        <img src="{% static 'image/logo.png' %}"> 
-        <p>경기도 지역화폐<br>어디에 써? 어디있어?</p>
+        <img src="{% static 'image/gmlogo.png' %}" width="50px">
+        <div class="title">
+            <img src="{% static 'image/logo.png' %}" width="200px"> 
+            <p>경기도 지역화폐<br>어디에 써? 어디있어?</p>
+        </div>
     </header>
 
     <main>
         <div class="main1">
-            <div class="search">
-            </div>
-    
             <div class="map"  onclick="currentloc();">
-                <img src="https://w7.pngwing.com/pngs/770/688/png-transparent-computer-icons-google-map-maker-map-marker-angle-black-map-thumbnail.png" width="70px">
-                <p>내 주변 가맹점 정보보기</p>
+                <img src="{% static 'image/map.png' %}" width="200px">
                 <script>
                     function currentloc() {        
                         // Geolocation API에 액세스할 수 있는지를 확인
@@ -46,10 +44,8 @@
         </div>
         
         <div class="main2">
-            <div class="link">
-                <h4>아직 재난기본소득 신청을 안 하셨나요?</h4>
-                <a href="http://www.gmoney.or.kr/">경기도 지역화폐 홈페이지 바로가기</a>
-            </div>
+            <p>아직 재난기본소득 신청을 안 하셨나요?</p>
+            <a href="http://www.gmoney.or.kr/"><img src="{% static 'image/linkbutton.png' %}" width="200px"></a>
         </div>
         
 
