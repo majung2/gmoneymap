@@ -22,9 +22,10 @@ body{
     position: absolute;
     text-align: center;
     font-size: 15px;
-    color:white; /* #005dac*/
-    /* background-color: white;  */
-    background-color: #002c52;
+    /* navy ver & white ver */
+    color:white; background-color: #002c52;
+    /* background-color: white; color: #005dac; */
+    
 }
 
 
