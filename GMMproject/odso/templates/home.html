@@ -5,9 +5,11 @@
     <meta charset="utf-8">
     <title>오디써</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, ...">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"> 
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"> <!--전체적용-->
+    <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css"> <!--나눔스퀘어 폰트-->
     <script src="http://code.jquery.com/jquery-1.11.0.js"></script> <!--현위치 받기-->
 </head>
+
 <body>
     <header>
         <h3>경기도 지역화폐 가맹점 지도</h3>
@@ -16,40 +18,40 @@
     </header>
 
     <main>
-        <div class="search">
-            <a href="{% url 'map' %}">주변 가맹점을 찾아보세요</a><br>
-        </div>
-
-        <input type="button" id="button1" onclick="currentloc();" value="주변 가맹점 보기">
-        <script>
-            function currentloc() {        
-                // Geolocation API에 액세스할 수 있는지를 확인
-                if (navigator.geolocation) {
-                    //위치 정보를 얻기
-                    navigator.geolocation.getCurrentPosition (function(pos) {
-                        var latitude = pos.coords.latitude;
-                        var longitude = pos.coords.longitude;
-                        location.href="map?"+latitude+","+longitude;
-                    });
-                } else { // 디폴트위치: 경기도청
-                    alert("현 위치를 받을 수 없습니다.")
-                    location.href="map?37.275050,127.009447";
-                }
-                
-            }
-        </script>
-
-
-
-        <div class="select">
-            <div class="location">
+        <div class="main1">
+            <div class="search">
+            </div>
+    
+            <div class="map">
+                <button type="button" id="button1" onclick="currentloc();"><img src="https://w7.pngwing.com/pngs/770/688/png-transparent-computer-icons-google-map-maker-map-marker-angle-black-map-thumbnail.png" width="30px"></button>
+                <script>
+                    function currentloc() {        
+                        // Geolocation API에 액세스할 수 있는지를 확인
+                        if (navigator.geolocation) {
+                            //위치 정보를 얻기
+                            navigator.geolocation.getCurrentPosition (function(pos) {
+                                var latitude = pos.coords.latitude;
+                                var longitude = pos.coords.longitude;
+                                location.href="map?"+latitude+","+longitude;
+                            });
+                        } else { // 디폴트위치: 경기도청
+                            alert("현 위치를 받을 수 없습니다.")
+                            location.href="map?37.275050,127.009447";
+                        }
+                        
+                    }
+                </script>
             </div>
         </div>
         
-        <div class="link">
-            <h4>아직 재난기본소득 신청을 안 하셨나요?</h4>
-            <a href="http://www.gmoney.or.kr/">경기도 지역화폐 홈페이지 바로가기</a>
+        <div class="main2">
+            <div class="link">
+                <h4>아직 재난기본소득 신청을 안 하셨나요?</h4>
+                <a href="http://www.gmoney.or.kr/">경기도 지역화폐 홈페이지 바로가기</a>
+            </div>
         </div>
+        
+
     </main>
     
     <footer>
@@ -59,6 +61,6 @@
         <p>본 서비스는 모바일에 최적화되어 있습니다.</p>
         <p>만든사람들: 이미정 구도원 이지윤<br>Copyrights 2020 © G_cos</p>
     </footer>
-
 </body>
 </html>
+

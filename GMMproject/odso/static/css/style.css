@@ -1,37 +1,56 @@
 *{
     box-sizing: border-box;
+    font-family: 'NanumSquare';
 }
+.nanumsquare { font-family: 'NanumSquare', sans-serif !important; }
+
 html{
     position: relative;
     min-height:100%;
     margin: 0;
-    background-color: #005dac;
-    color:white;
 }
+
 body{
     margin: 10px 5px;
     text-align: center;
     min-height:100%;
-    
+    background-color: white;
+    color:#005dac;
 }
+
+
 header{
     padding: 50px;
 }
 main{
     height:350px;
 }
-.search{
-    height:40%;
+.main1{
+    height:80%;
 }
+.main2{
+    height:20%;
+}
+
+
 footer{
     position: absolute;
     font-size: 10px;
     bottom: 0;
     width:100%;
+    color:gray;
 }
 
-/* aÅÂ±× */
+/* a tag*/
 a {
-    color:white;
+    color:#005dac;
+    text-decoration: none;
+}
+a:visited{
+    color:#005dac;
+    text-decoration: none;
+}
+a:hover{
+    color:#002c52;
     text-decoration: none;
 }
