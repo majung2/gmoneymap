@@ -1,0 +1,4 @@
+django==3.0.1
+djangorestframework==3.11.0
+django-rest-swagger==2.2.0
+mysqlclient
