@@ -42,7 +42,7 @@
     function city_show(code) {
         city.style.display = "";
         if (code == 41000){
-            document.all("city").innerHTML="<img src="+"{% static 'image/renew.png' %}"+">";
+            document.all("city").innerHTML='<img src="{% static "image/y.png" %}" style="width:100%">';
         }
     }
             
@@ -146,9 +146,9 @@
 
     function addPosition(data){
         var dict={}
-        dict['content']='<div id="title">' + data["name"] +
+        dict['content']='<div id="ti"><div id="title">' + data["name"] +
             '</div><div id="industry">' + data["industry_name"] +
-            '</div><div id="address">' + data["refine_road_address"] +
+            '</div></div><div id="address">' + data["refine_road_address"] +
             '</div><div id="num">' + data["phone"] + 
             '</div>';
         dict['latlng']=new kakao.maps.LatLng(data["latitude"],data["longitude"]);
