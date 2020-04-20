@@ -52,3 +52,7 @@ body{
 #address, #num{
     color: rgb(43, 43, 43);
 }
+#address{
+    font-size:20px;
+    color:gray; 
+}
