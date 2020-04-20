@@ -13,16 +13,16 @@
 </head>
 
 <body>
-        <div id="map" onclick="div_hide();"></div> 
-
+    <div id="map" onclick="div_hide();"></div> 
+    <div class="nav">
         <div class="buttons">
             <a href="{% url 'home' %}"><img src="https://cdn.icon-icons.com/icons2/602/PNG/512/Home_icon-icons.com_55890.png" width="40px"></a>
             <button type="button" id="button2" onclick="currentloc();"><img src="{% static 'image/renew.png' %}" width="40px"></button>
         </div> 
-
-        
-        <div id="detail" style="display:none">
-        </div>
+        <div id="city" style="display:none"></div>
+    </div>
+    <div id="detail" style="display:none">
+    </div>
 
 
 <script>
@@ -35,6 +35,13 @@
     //detail 숨기기
     function div_hide() {
         detail.style.display = "none";
+        city.style.display = "none"
+    }
+
+    //city 보이기
+    function city_show(code) {
+        city.style.display = "",
+        document.all("city").innerHTML=code;
     }
             
     function currentloc() {  //현 위치 다시받기     
@@ -109,6 +116,22 @@
             "latitude": 37.3234,
             "longitude": 127.082,
             "last_updated_at": "2019-09-30"
+        },
+        {
+            "id": "27a80dca8269a66447a1dc3",
+            "name": "빈스앤브래드",
+            "industry_name": "카페",
+            "city": {
+                "code": 41000,
+                "name": "수원시"
+            },
+            "refine_road_address": "경기도 수원시 권선구 금곡로 23",
+            "refine_num_address": "경기도 수원시 권선구 금곡동 154번지",
+            "phone": "010-1444-1234",
+            "zip_code": "14243",
+            "latitude": 37.3210133,
+            "longitude": 127.09365,
+            "last_updated_at": "2019-09-30"
         }
     ]
 
@@ -122,10 +145,12 @@
     function addPosition(data){
         var dict={}
         dict['content']='<div id="title">' + data["name"] +
+            '</div><div id="industry">' + data["industry_name"] +
             '</div><div id="address">' + data["refine_road_address"] +
-            '</div><div id="num">' + data["phone"] +
+            '</div><div id="num">' + data["phone"] + 
             '</div>';
         dict['latlng']=new kakao.maps.LatLng(data["latitude"],data["longitude"]);
+        dict['city']= data["city"]["code"];
         positions.push(dict)
     }
 
@@ -154,20 +179,16 @@
 
     // 지도 위에 마커를 표시합니다
     for (var i = 0; i < positions.length; i++) {
-        var gapX = (MARKER_WIDTH + SPRITE_GAP), // 스프라이트 이미지에서 마커로 사용할 이미지 X좌표 간격 값
-            normalOrigin = new kakao.maps.Point(0, 0), // 스프라이트 이미지에서 기본 마커로 사용할 영역의 좌상단 좌표
-            overOrigin = new kakao.maps.Point(gapX * 2, 0); // 스프라이트 이미지에서 클릭 마커로 사용할 영역의 좌상단 좌표
-            
         // 마커를 생성하고 지도위에 표시합니다
-        addMarker(positions[i].latlng, normalOrigin, overOrigin, positions[i].content);
+        addMarker(positions[i].latlng, positions[i].content, positions[i].city);
     }
 
     // 마커를 생성하고 지도 위에 표시하고, 마커에 mouseover, mouseout, click 이벤트를 등록하는 함수입니다
-    function addMarker(position, normalOrigin, overOrigin, con) {
+    function addMarker(position, con, citycode) {
 
         // 기본 마커이미지, 오버 마커이미지, 클릭 마커이미지를 생성합니다
-        var normalImage = createMarkerImage(markerSize, markerOffset, normalOrigin),
-            overImage = createMarkerImage(overMarkerSize, overMarkerOffset, overOrigin);
+        var normalImage = createMarkerImage(markerSize, markerOffset, new kakao.maps.Point(0, 0)),
+            overImage = createMarkerImage(overMarkerSize, overMarkerOffset, new kakao.maps.Point((MARKER_WIDTH + SPRITE_GAP) * 2, 0));
         
         // 마커를 생성하고 이미지는 기본 마커 이미지를 사용합니다
         var marker = new kakao.maps.Marker({
@@ -177,6 +198,7 @@
         });
 
         marker.setTitle(con); //마커 상세내용
+        marker.setAltitude(citycode); //마커 도시코드
 
         // 마커 객체에 마커아이디와 마커의 기본 이미지를 추가합니다
         marker.normalImage = normalImage;
@@ -201,6 +223,9 @@
 
             // 해당 마커의 상세내용을 보여줍니다
             div_show(marker.getTitle());
+
+            //해당 마커의 도시를 보여줍니다
+            city_show(marker.getAltitude());
         });
 
     }
