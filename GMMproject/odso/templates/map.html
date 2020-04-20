@@ -17,7 +17,7 @@
     <div class="nav">
         <div class="buttons">
             <a href="{% url 'home' %}"><img src="https://cdn.icon-icons.com/icons2/602/PNG/512/Home_icon-icons.com_55890.png" width="40px"></a>
-            <button type="button" id="button2" onclick="currentloc();"><img src="{% static 'image/renew.png' %}" width="40px"></button>
+            <img src="{% static 'image/renew.png' %}" width="40px" onclick="currentloc();">
         </div> 
         <div id="city" style="display:none"></div>
     </div>
@@ -38,10 +38,12 @@
         city.style.display = "none"
     }
 
-    //city 보이기
+    //city 정보 보이기
     function city_show(code) {
-        city.style.display = "",
-        document.all("city").innerHTML=code;
+        city.style.display = "";
+        if (code == 41000){
+            document.all("city").innerHTML="<img src="+"{% static 'image/renew.png' %}"+">";
+        }
     }
             
     function currentloc() {  //현 위치 다시받기     
