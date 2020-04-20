@@ -16,8 +16,8 @@
         <div id="map" onclick="div_hide();"></div> 
 
         <div class="buttons">
-            <button type="button" id="button2" onclick="currentloc();"><img src="{% static 'image/renew.png' %}" width="40px"></button>
             <a href="{% url 'home' %}"><img src="https://cdn.icon-icons.com/icons2/602/PNG/512/Home_icon-icons.com_55890.png" width="40px"></a>
+            <button type="button" id="button2" onclick="currentloc();"><img src="{% static 'image/renew.png' %}" width="40px"></button>
         </div> 
 
         
@@ -26,13 +26,13 @@
 
 
 <script>
-    //보이기
+    //detail 보이기
     function div_show(content) {
         detail.style.display = "",
         document.all("detail").innerHTML=content;
     }
     
-    //숨기기
+    //detail 숨기기
     function div_hide() {
         detail.style.display = "none";
     }
@@ -73,33 +73,61 @@
         position: new kakao.maps.LatLng(lat, lon), // 마커를 표시할 위치
     });
 
+
+    ////////////////////////////////////////////
+    //데이터 받기//
+
+    var data =[
+        {
+            "id": "27a80d92d1734b7ca8269a66447a1dc3",
+            "name": "크린토피아",
+            "industry_name": "세탁업",
+            "city": {
+                "code": 41000,
+                "name": "수원시"
+            },
+            "refine_road_address": "경기도 수원시 권선구 금곡로 45",
+            "refine_num_address": "경기도 수원시 권선구 금곡동 153번지",
+            "phone": "010-1234-1234",
+            "zip_code": "12345",
+            "latitude": 37.3234, 
+            "longitude": 127.0824,
+            "last_updated_at": "2019-09-30"
+        },
+        {
+            "id": "27a80dca8269a66447a1dc3",
+            "name": "빈스앤브래드",
+            "industry_name": "카페",
+            "city": {
+                "code": 41000,
+                "name": "수원시"
+            },
+            "refine_road_address": "경기도 수원시 권선구 금곡로 23",
+            "refine_num_address": "경기도 수원시 권선구 금곡동 154번지",
+            "phone": "010-1444-1234",
+            "zip_code": "14243",
+            "latitude": 37.3234,
+            "longitude": 127.082,
+            "last_updated_at": "2019-09-30"
+        }
+    ]
+
     // 마커를 표시할 위치와 title 객체 배열입니다 
-    var positions = [
-        {
-            content: '<div id="title">빈스앤브래드</div>' +
-                '        <div id="address">경기도 용인시 수지구 수지로277번길 10</div>' +
-                '        <div id="num">010-2222-3333</div>', 
-            latlng: new kakao.maps.LatLng(37.323, 127.08294),
-        },
-        {
-            content: '<div id="title">롤랄랄</div>' +
-            '        <div id="address">경기도 용인시 수지구 수지로27번길 3</div>' +
-            '        <div id="num">031-222-1133</div>',
-            latlng: new kakao.maps.LatLng(37.323, 127.082),
-        },
-        {
-            content: '<div id="title">래드</div>' +
-            '        <div id="address">경기도 용인시 수지구 수지로277번길 10</div>' +
-            '        <div id="num">010-2222-3333</div>', 
-            latlng: new kakao.maps.LatLng(37.3234, 127.082),
-        },
-        {
-            content: '<div id="title">빈스앤</div>' +
-            '        <div id="address">경기도 용인시 수지구 수지로277번길 10</div>' +
-            '        <div id="num">010-2222-3333</div>',
-            latlng: new kakao.maps.LatLng(37.3234, 127.0824),
-        },
-    ];
+    var positions = []
+
+    for (var i=0;i<data.length;i++){
+        addPosition(data[i]);
+    }
+
+    function addPosition(data){
+        var dict={}
+        dict['content']='<div id="title">' + data["name"] +
+            '</div><div id="address">' + data["refine_road_address"] +
+            '</div><div id="num">' + data["phone"] +
+            '</div>';
+        dict['latlng']=new kakao.maps.LatLng(data["latitude"],data["longitude"]);
+        positions.push(dict)
+    }
 
     ///////////////////////////////////////////////////////////
 
@@ -148,7 +176,7 @@
             image: normalImage,
         });
 
-        marker.setTitle(con);
+        marker.setTitle(con); //마커 상세내용
 
         // 마커 객체에 마커아이디와 마커의 기본 이미지를 추가합니다
         marker.normalImage = normalImage;
