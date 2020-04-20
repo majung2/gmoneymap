@@ -6,14 +6,15 @@
     <title>오디써</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="{% static 'css/mapstyle.css' %}"> <!--지도적용-->
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3ee8e0692190c94bbe63d42f7dbe7aeb"></script> <!--지도API-->
     <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css"> <!--나눔스퀘어 폰트-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> <!--부트스트랩-->
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3ee8e0692190c94bbe63d42f7dbe7aeb"></script> <!--지도API-->
     <script src="http://code.jquery.com/jquery-1.11.0.js"></script> <!--현위치 받기-->
 </head>
 
 <body>
         <div id="map" onclick="div_hide();"></div> 
-    
+
         <div class="buttons">
             <button type="button" id="button2" onclick="currentloc();"><img src="{% static 'image/renew.png' %}" width="40px"></button>
             <a href="{% url 'home' %}"><img src="https://cdn.icon-icons.com/icons2/602/PNG/512/Home_icon-icons.com_55890.png" width="40px"></a>
