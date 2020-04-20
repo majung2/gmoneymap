@@ -19,5 +19,14 @@ from odso import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',views.home, name="home"),
+
+    # static
+    path('', views.HomeView.as_view()),
+    path('map/', views.MapView.as_view()),
+
+    # rest api (json)
+    path('api/v1/cities/', views.CityList.as_view()),
+    path('api/v1/cities/<int:pk>/', views.CityDetail.as_view()),
+    path('api/v1/stores/', views.StoreList.as_view()),
+    path('api/v1/stores/<str:pk>/', views.StoreDetail.as_view()),
 ]
