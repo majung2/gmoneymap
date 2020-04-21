@@ -15,7 +15,8 @@
 <body>
     <div id="map" onclick="detail_hide();"></div> 
 
-    <div class="nav">
+    <!-- nav바: 뒤로가기, 검색창, 현위치다시받기 -->
+    <div class="nav"> 
         <div id="nav_button">
             <a href="{% url 'home' %}"><img src="{% static 'image/back.png' %}" height="100%"></a>
         </div> 
@@ -23,14 +24,18 @@
             <input id="input" type="text" placeholder="검색어 입력">
             <button id="search_button" onclick="search();">검색</button>
         </div>
-        <img src="{% static 'image/renew.png' %}" style="margin: 0 7px 0 0;" height="90%" onclick="currentloc();">
-    </div>
-
-    <div class="search_result" id="result">
-        <ul class="list-group" id="lg">
-        </ul>
+        <img src="{% static 'image/renew.png' %}" style="margin: 2px 3px 0 0;" height="90%" onclick="currentloc();">
     </div>
     
+    <!-- 검색결과 -->
+    <div class="search_result" id="result">
+        <div class="scrollBlind" style="display:none" id="sb">
+            <ul class="list-group" id="lg">
+            </ul>
+        </div>
+    </div>
+    
+    <!-- 상세페이지 -->
     <div id="city" style="display:none"></div>
     <div id="detail" style="display:none"></div>
     
@@ -47,6 +52,7 @@
         detail.style.display = "none"; 
         city.style.display = "none";
         result.style.display = "none";
+
         selectedMarker.setImage(selectedMarker.normalImage);
         selectedMarker = null;
     }
@@ -126,6 +132,70 @@
             "zip_code": "12345",
             "latitude": 37.3234, 
             "longitude": 127.0824,
+            "last_updated_at": "2019-09-30"
+        },
+        {
+            "id": "27a80d92d1734b7ca8269a66447a1dc3",
+            "name": "크린토피아",
+            "industry_name": "세탁업",
+            "city": {
+                "code": 1,
+                "name": "수원시"
+            },
+            "refine_road_address": "경기도 수원시 권선구 금곡로 45",
+            "refine_num_address": "경기도 수원시 권선구 금곡동 153번지",
+            "phone": "010-1234-1234",
+            "zip_code": "12345",
+            "latitude": 37.3234, 
+            "longitude": 127.0824,
+            "last_updated_at": "2019-09-30"
+        },
+        {
+            "id": "27a80d92d1734b7ca8269a66447a1dc3",
+            "name": "크린토피아",
+            "industry_name": "세탁업",
+            "city": {
+                "code": 1,
+                "name": "수원시"
+            },
+            "refine_road_address": "경기도 수원시 권선구 금곡로 45",
+            "refine_num_address": "경기도 수원시 권선구 금곡동 153번지",
+            "phone": "010-1234-1234",
+            "zip_code": "12345",
+            "latitude": 37.3234, 
+            "longitude": 127.0824,
+            "last_updated_at": "2019-09-30"
+        },
+        {
+            "id": "27a80d92d1734b7ca8269a66447a1dc3",
+            "name": "랄랄루",
+            "industry_name": "세탁업",
+            "city": {
+                "code": 1,
+                "name": "수원시"
+            },
+            "refine_road_address": "경기도 수원시 권선구 금곡로 45",
+            "refine_num_address": "경기도 수원시 권선구 금곡동 153번지",
+            "phone": "010-1234-1234",
+            "zip_code": "12345",
+            "latitude": 37.32347, 
+            "longitude": 127.0824,
+            "last_updated_at": "2019-09-30"
+        },
+        {
+            "id": "27a80d92d1734b7ca8269a66447a1dc3",
+            "name": "토피아",
+            "industry_name": "세탁업",
+            "city": {
+                "code": 1,
+                "name": "수원시"
+            },
+            "refine_road_address": "경기도 수원시 권선구 금곡로 45",
+            "refine_num_address": "경기도 수원시 권선구 금곡동 153번지",
+            "phone": "010-1234-1234",
+            "zip_code": "12345",
+            "latitude": 37.3234, 
+            "longitude": 127.08248,
             "last_updated_at": "2019-09-30"
         },
         {
@@ -285,7 +355,10 @@
                 marker.setImage(overImage);
                 selectedMarker = marker;
             }
+            // 해당 마커의 상세내용을 보여줍니다
             detail_show(marker.getTitle());
+            //해당 마커의 도시를 보여줍니다
+            city_show(marker.getAltitude());
         };
         
     }
@@ -321,6 +394,7 @@
         detail.style.display = "none";
         city.style.display = "none";
         result.style.display = "";
+        sb.style.display = "";
 
         // 검색어 받기
         var input = document.getElementById("input").value;
@@ -336,6 +410,7 @@
     // 가게명 눌렀을 때 해당 마커로 지도 이동 & 정보 띄우기
     function marker_info(latitude,longitude){
         location.href="?"+latitude+","+longitude;
+        result.style.display = "none";
     }
 
 
