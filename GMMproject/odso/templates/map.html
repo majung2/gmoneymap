@@ -20,7 +20,7 @@
             <a href="{% url 'home' %}"><img src="{% static 'image/back.png' %}" height="100%"></a>
         </div> 
         <div class="search">
-            <input id="search_box" type="text" placeholder="검색어 입력">
+            <input id="input" type="text" placeholder="검색어 입력">
             <button id="search_button" onclick="search();">검색</button>
         </div>
         <img src="{% static 'image/renew.png' %}" style="margin: 0 7px 0 0;" height="90%" onclick="currentloc();">
@@ -127,7 +127,7 @@
         },
         {
             "id": "27a80d92d1734b7ca8269a66447a1dc3",
-            "name": "크린토피아",
+            "name": "크린",
             "industry_name": "세탁업",
             "city": {
                 "code": 2,
@@ -143,7 +143,7 @@
         },
         {
             "id": "27a80dca8269a66447a1dc3",
-            "name": "빈스앤브래드",
+            "name": "빈스",
             "industry_name": "카페",
             "city": {
                 "code": 3,
@@ -292,12 +292,22 @@
     } 
 
     function search(){
+        // 이전내용 지우기
         $(function(){
             $('#lg').empty();
         });
+
+        // 창 띄우기
         result.style.display = "";
+
+        // 검색어 받기
+        var input = document.getElementById("input").value;
+
+
         for (var i=0; i<positions.length; i++){
-            addResult(positions[i].content);
+            if(positions[i].content.indexOf(input)!=-1){
+                addResult(positions[i].content);
+            } 
         }
     }
 

@@ -51,7 +51,7 @@ body{
     border-radius: 10px;
     border: 3px solid rgb(0, 28, 87); 
 }
-#search_box{
+#input{
     width:80%;
     border:0;
     background: none;
