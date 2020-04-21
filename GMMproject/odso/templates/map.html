@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css"> <!--나눔스퀘어 폰트-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> <!--부트스트랩-->
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3ee8e0692190c94bbe63d42f7dbe7aeb"></script> <!--지도API-->
-    <script src="http://code.jquery.com/jquery-1.11.0.js"></script> <!--현위치 받기-->
+    <script src="http://code.jquery.com/jquery-1.11.0.js"></script> <!--현위치 받기, 내용 없애기-->
 </head>
 
 <body>
@@ -19,39 +19,18 @@
         <div id="nav_button">
             <a href="{% url 'home' %}"><img src="{% static 'image/back.png' %}" height="100%"></a>
         </div> 
-        <!-- <div class="search">
+        <div class="search">
             <input id="search_box" type="text" placeholder="검색어 입력">
-            <button id="search_button">검색</button>
-        </div> -->
+            <button id="search_button" onclick="search();">검색</button>
+        </div>
         <img src="{% static 'image/renew.png' %}" style="margin: 0 7px 0 0;" height="90%" onclick="currentloc();">
     </div>
 
-    <!-- <div class="search_result">
-        <ul>
-            <li>랄라</li>
-            <li>랄라</li>
-            <li>랄라</li>
-            <li>랄라</li>
-            <li>랄라</li>
-            <li>랄라</li>
-            <li>랄라</li>
-            <li>랄라</li>
-            <li>랄라</li>
-            <li>랄라</li>
-            <li>랄라</li>
-            <li>랄라</li>
-            <li>랄라</li>
-            <li>랄라</li>
-            <li>랄라</li>
-            <li>랄라</li>
-            <li>랄라</li>
-            <li>랄라</li>
-            <li>랄라</li>
-            <li>랄라</li>
-            <li>랄라</li>
+    <div class="search_result" id="result">
+        <ul class="list-group" id="lg">
         </ul>
     </div>
-     -->
+    
     <div id="city" style="display:none"></div>
     <div id="detail" style="display:none"></div>
     
@@ -65,8 +44,9 @@
     
     //detail 숨기기
     function div_hide() {
-        detail.style.display = "none";
-        city.style.display = "none"
+        detail.style.display = "none"; 
+        city.style.display = "none";
+        result.style.display = "none";
     }
 
     //city 정보 보이기
@@ -290,7 +270,6 @@
 
     }
 
-
     // MakrerImage 객체를 생성하여 반환하는 함수입니다
     function createMarkerImage(markerSize, offset, spriteOrigin) {
         var markerImage = new kakao.maps.MarkerImage(
@@ -304,6 +283,24 @@
         );
         return markerImage;
     }
+
+/////////////////////////////
+
+    // search 
+    function addResult(title) {
+        $("#lg").append("<li class='list-group-item' id='sr'>" + title + "</li>");
+    } 
+
+    function search(){
+        $(function(){
+            $('#lg').empty();
+        });
+        result.style.display = "";
+        for (var i=0; i<positions.length; i++){
+            addResult(positions[i].content);
+        }
+    }
+
 
 </script>
 </body>
