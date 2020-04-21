@@ -120,13 +120,13 @@
     var data =[
         {
             "id": "27a80d92d1734b7ca8269a66447a1dc3",
-            "name": "크린토피아",
+            "name": "크피아",
             "industry_name": "세탁업",
             "city": {
                 "code": 1,
-                "name": "수원시"
+                "name": "용인시"
             },
-            "refine_road_address": "경기도 수원시 권선구 금곡로 45",
+            "refine_road_address": "경기도 용인시 권선구 금곡로 45",
             "refine_num_address": "경기도 수원시 권선구 금곡동 153번지",
             "phone": "010-1234-1234",
             "zip_code": "12345",
@@ -142,7 +142,7 @@
                 "code": 1,
                 "name": "수원시"
             },
-            "refine_road_address": "경기도 수원시 권선구 금곡로 45",
+            "refine_road_address": "경기도 용인시 권선구 금곡로 45",
             "refine_num_address": "경기도 수원시 권선구 금곡동 153번지",
             "phone": "010-1234-1234",
             "zip_code": "12345",
@@ -152,11 +152,11 @@
         },
         {
             "id": "27a80d92d1734b7ca8269a66447a1dc3",
-            "name": "크린토피아",
+            "name": "랄랄아",
             "industry_name": "세탁업",
             "city": {
                 "code": 1,
-                "name": "수원시"
+                "name": "용인시"
             },
             "refine_road_address": "경기도 수원시 권선구 금곡로 45",
             "refine_num_address": "경기도 수원시 권선구 금곡동 153번지",
@@ -398,10 +398,15 @@
         sb.style.display = "";
 
         // 검색어 받기
-        var input = document.getElementById("input").value;
+        var inputs = document.getElementById("input").value.split(" ");
 
         for (var i=0; i<positions.length; i++){
-            if(positions[i].info.indexOf(input)!=-1){
+            if(inputs[1]){
+                if(positions[i].info.indexOf(inputs[0])!=-1 && positions[i].info.indexOf(inputs[1])!=-1){
+                    addResult(positions[i].content);
+                }
+            }
+            else if(positions[i].info.indexOf(inputs[0])!=-1){
                 addResult(positions[i].content);
             } 
         }
