@@ -19,7 +19,14 @@
         <div id="nav_button">
             <a href="{% url 'home' %}"><img src="{% static 'image/back.png' %}" height="100%"></a>
         </div> 
-        <img src="{% static 'image/renew.png' %}" height="90%" onclick="currentloc();">
+        <div class="search">
+            <input id="search_box" type="text" placeholder="검색어 입력">
+            <button id="search_button">검색</button>
+        </div>
+        <img src="{% static 'image/renew.png' %}" style="margin: 0 7px 0 0;" height="90%" onclick="currentloc();">
+    </div>
+    <div class="search_result">
+
     </div>
     <div id="city" style="display:none"></div>
     <div id="detail" style="display:none"></div>
@@ -41,10 +48,8 @@
     //city 정보 보이기
     function city_show(code) {
         city.style.display = "";
-        if (code == 41000){
-            document.all("city").innerHTML='<img class="city1">';
-        } else {
-            document.all("city").innerHTML='<img class="city2">';
+        if (code){
+            document.all("city").innerHTML='<div class="city'+code+'"></div>';
         }
     }
             
@@ -78,10 +83,21 @@
     
     var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 
+
     //현 위치 표시
+
+    var imageSrc = "{% static 'image/current.png' %}"; 
+    
+    // 현재위치 이미지의 이미지 크기 입니다
+    var imageSize = new kakao.maps.Size(50, 50); 
+        
+    // 현재위치 이미지를 생성합니다    
+    var currentImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
+
     var marker = new kakao.maps.Marker({ 
         map: map, // 마커를 표시할 지도
         position: new kakao.maps.LatLng(lat, lon), // 마커를 표시할 위치
+        image: currentImage,
     });
 
 
@@ -94,7 +110,7 @@
             "name": "크린토피아",
             "industry_name": "세탁업",
             "city": {
-                "code": 41000,
+                "code": 1,
                 "name": "수원시"
             },
             "refine_road_address": "경기도 수원시 권선구 금곡로 45",
@@ -106,11 +122,27 @@
             "last_updated_at": "2019-09-30"
         },
         {
+            "id": "27a80d92d1734b7ca8269a66447a1dc3",
+            "name": "크린토피아",
+            "industry_name": "세탁업",
+            "city": {
+                "code": 2,
+                "name": "수원시"
+            },
+            "refine_road_address": "경기도 수원시 권선구 금곡로 45",
+            "refine_num_address": "경기도 수원시 권선구 금곡동 153번지",
+            "phone": "010-1234-1234",
+            "zip_code": "12345",
+            "latitude": 37.32345, 
+            "longitude": 127.0824,
+            "last_updated_at": "2019-09-30"
+        },
+        {
             "id": "27a80dca8269a66447a1dc3",
             "name": "빈스앤브래드",
             "industry_name": "카페",
             "city": {
-                "code": 2,
+                "code": 3,
                 "name": "수원시"
             },
             "refine_road_address": "경기도 수원시 권선구 금곡로 23",

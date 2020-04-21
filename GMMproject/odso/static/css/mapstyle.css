@@ -40,8 +40,33 @@ body{
 }
 #nav_button{
     height:60%;
+    width:10%;
     padding: 0 8px 0 10px;
 }
+.search{
+    width:70%;
+    display: flex;
+    justify-content: space-between;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    border: 3px solid rgb(0, 28, 87); 
+}
+#search_box{
+    width:80%;
+    border:0;
+    background: none;
+    padding: 0 0 0 5px;
+
+}
+#search_button{
+    max-width:60px;
+    width:20%;
+    background: rgb(0, 28, 87);
+    color: white;
+    border: 2px solid rgb(0, 28, 87); 
+}
+
+
 
 #city{
     position:absolute; 
@@ -84,16 +109,116 @@ body{
     color:rgb(53, 53, 53); 
 }
 
-/* 도시 이미지 */
-.city1{
+/* 도시 이미지, 번호는 각 도시 코드번호 */
+.city1{ /* 양평 */
     width: 100px; height: 100px;
-    background: url(../image/css_sprites.png) -0 -0;
+    background: url(../image/css_sprites.png) -10px -10px;
 }
-.city2{
+.city2{ /* 의정부 */
     width: 100px; height: 100px;
-    background: url(../image/css_sprites.png) -100px -0;
+    background: url(../image/css_sprites.png) -130px -10px;
 }
-.city3{
+.city3{ /* 화성 */
     width: 100px; height: 100px;
-    background: url(../image/css_sprites.png) -0 -100px;
+    background: url(../image/css_sprites.png)  -10px -130px;
+}
+.city4{ /* 광주 */
+    width: 100px; height: 100px;
+    background: url('css_sprites.png') -130px -130px;
+}
+.city5{ /* 수원 */
+    width: 100px; height: 100px;
+    background: url('css_sprites.png') -250px -10px;
+}
+.city6{ /* 여주 */
+    width: 100px; height: 100px;
+    background: url('css_sprites.png') -250px -130px;
+}
+.city7{ /* 인천 */
+    width: 100px; height: 100px;
+    background: url('css_sprites.png') -10px -250px;
+}
+.city8{ /* 구리 */
+    width: 100px; height: 100px;
+    background: url('css_sprites.png') -130px -250px;
+}
+.city9{ /* 안산 */
+    width: 100px; height: 100px;
+    background: url('css_sprites.png') -250px -250px;
+}
+.city10{ /* 연천 */
+    width: 100px; height: 100px;
+    background: url('css_sprites.png') -370px -10px;
+}
+.city11{ /* 파주 */
+    width: 100px; height: 100px;
+    background: url('css_sprites.png') -370px -130px;
+}
+.city12{ /* 가평 */
+    width: 100px; height: 100px;
+    background: url('css_sprites.png') -370px -250px;
+}
+.city13{ /* 군포 */
+    width: 100px; height: 100px;
+    background: url('css_sprites.png') -10px -370px;
+}
+.city14{ /* 안성 */
+    width: 100px; height: 100px;
+    background: url('css_sprites.png') -130px -370px;
+}
+.city15{ /* 오산 */
+    width: 100px; height: 100px;
+    background: url('css_sprites.png') -250px -370px;
+}
+.city16{ /* 평택 */
+    width: 100px; height: 100px;
+    background: url('css_sprites.png') -370px -370px;
+}
+.city17{ /* 고양 */
+    width: 100px; height: 100px;
+    background: url('css_sprites.png') -490px -10px;
+}
+.city18{ /* 남양주 */
+    width: 100px; height: 100px;
+    background: url('css_sprites.png') -490px -130px;
+}
+.city19{ /* 안양 */
+    width: 100px; height: 100px;
+    background: url('css_sprites.png') -490px -250px;
+}
+.city20{ /* 용인 */
+    width: 100px; height: 100px;
+    background: url('css_sprites.png') -490px -370px;
+}
+.city21{ /* 포천 */
+    width: 100px; height: 100px;
+    background: url('css_sprites.png') -10px -490px;
+}
+.city22{ /* 과천 */
+    width: 100px; height: 100px;
+    background: url('css_sprites.png') -130px -490px;
+}
+.city23{ /* 동두천 */
+    width: 100px; height: 100px;
+    background: url('css_sprites.png') -250px -490px;
+}
+.city24{ /* 양주 */
+    width: 100px; height: 100px;
+    background: url('css_sprites.png') -370px -490px;
+}
+.city25{ /* 의왕 */
+    width: 100px; height: 100px;
+    background: url('css_sprites.png') -490px -490px;
+}
+.city26{ /* 하남 */
+    width: 100px; height: 100px;
+    background: url('css_sprites.png') -610px -10px;
+}
+.city27{ /* 광명 */
+    width: 100px; height: 100px;
+    background: url('css_sprites.png') -610px -130px;
+}
+.city28{ /* 부천 */
+    width: 100px; height: 100px;
+    background: url('css_sprites.png') -610px -250px;
 }
