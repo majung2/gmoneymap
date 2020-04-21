@@ -14,16 +14,16 @@
 
 <body>
     <div id="map" onclick="div_hide();"></div> 
-    <div class="nav">
-        <div class="buttons">
-            <a href="{% url 'home' %}"><img src="https://cdn.icon-icons.com/icons2/602/PNG/512/Home_icon-icons.com_55890.png" width="40px"></a>
-            <img src="{% static 'image/renew.png' %}" width="40px" onclick="currentloc();">
-        </div> 
-        <div id="city" style="display:none"></div>
-    </div>
-    <div id="detail" style="display:none">
-    </div>
 
+    <div class="nav">
+        <div id="nav_button">
+            <a href="{% url 'home' %}"><img src="{% static 'image/back.png' %}" height="100%"></a>
+        </div> 
+        <img src="{% static 'image/renew.png' %}" height="90%" onclick="currentloc();">
+    </div>
+    <div id="city" style="display:none"></div>
+    <div id="detail" style="display:none"></div>
+    
 
 <script>
     //detail 보이기
@@ -42,7 +42,9 @@
     function city_show(code) {
         city.style.display = "";
         if (code == 41000){
-            document.all("city").innerHTML='<img src="{% static "image/y.png" %}" style="width:100%">';
+            document.all("city").innerHTML='<img class="city1">';
+        } else {
+            document.all("city").innerHTML='<img class="city2">';
         }
     }
             
@@ -108,7 +110,7 @@
             "name": "빈스앤브래드",
             "industry_name": "카페",
             "city": {
-                "code": 41000,
+                "code": 2,
                 "name": "수원시"
             },
             "refine_road_address": "경기도 수원시 권선구 금곡로 23",
@@ -124,7 +126,7 @@
             "name": "빈스앤브래드",
             "industry_name": "카페",
             "city": {
-                "code": 41000,
+                "code": 3,
                 "name": "수원시"
             },
             "refine_road_address": "경기도 수원시 권선구 금곡로 23",

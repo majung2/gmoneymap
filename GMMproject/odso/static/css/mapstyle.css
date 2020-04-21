@@ -32,15 +32,25 @@ body{
 .nav{
     display: flex;
     justify-content: space-between;
+    align-items: center;
     width:100%;
     height:50px;
-    background-color: rgba(77, 170, 116, 0.1);
+    background-color: rgba(0, 28, 87, 0.1);
     box-shadow: 0px 1px 20px 3px rgb(187, 187, 187);
 }
-#city{
-    max-width: 30px;
+#nav_button{
+    height:60%;
+    padding: 0 8px 0 10px;
 }
 
+#city{
+    position:absolute; 
+    z-index:3;
+    max-width: 100px;
+    bottom: 20px;
+    right: 10px;
+    opacity: 0.3;
+}
 /* detail box */
 #detail{
     bottom: 0;
@@ -51,7 +61,7 @@ body{
     border-radius: 10px 10px 0 0;
 
     display: inline-block;
-    border-bottom: 10px solid rgb(77, 170, 116); 
+    border-bottom: 10px solid rgb(0, 28, 87); 
 
 }
 #ti{
@@ -60,17 +70,30 @@ body{
     padding: 0 0 5px 0;
 }
 #title{
-    color:#005dac;
-    font-size: 30px;
+    color:rgb(0, 28, 87);
+    font-size: 25px;
     font-weight: 800;
 }
 #industry{
     color: gray;
-    font-size: 20px;
-    padding: 0 0 0 5px;
+    font-size: 15px;
+    padding: 0 0 2px 5px;
 }
 #address, #num{
-    color: rgb(43, 43, 43);
     font-size:15px;
-    color:gray; 
+    color:rgb(53, 53, 53); 
+}
+
+/* 도시 이미지 */
+.city1{
+    width: 100px; height: 100px;
+    background: url(../image/css_sprites.png) -0 -0;
+}
+.city2{
+    width: 100px; height: 100px;
+    background: url(../image/css_sprites.png) -100px -0;
+}
+.city3{
+    width: 100px; height: 100px;
+    background: url(../image/css_sprites.png) -0 -100px;
 }
