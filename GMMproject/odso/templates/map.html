@@ -21,8 +21,8 @@
             <a href="{% url 'home' %}"><img src="{% static 'image/back.png' %}" height="100%"></a>
         </div> 
         <div class="search">
-            <input id="input" type="text" placeholder="검색어 입력">
-            <button id="search_button" onclick="search();">검색</button>
+            <input id="input" type="text" placeholder="가게명, 주소, 전화번호로 검색" maxlength="15" onkeypress="search();">
+            <input type="submit" id="search_button" onclick="search();" value="검색">
         </div>
         <img src="{% static 'image/renew.png' %}" style="margin: 2px 3px 0 0;" height="90%" onclick="currentloc();">
     </div>
@@ -264,6 +264,7 @@
             '</div>';
         dict['latlng']=new kakao.maps.LatLng(data["latitude"],data["longitude"]);
         dict['city']= data["city"]["code"];
+        dict['info']=data["name"]+data["industry_name"]+data["refine_road_address"]+data["refine_num_address"]+data["phone"];
         positions.push(dict)
     }
 
@@ -400,7 +401,7 @@
         var input = document.getElementById("input").value;
 
         for (var i=0; i<positions.length; i++){
-            if(positions[i].content.indexOf(input)!=-1){
+            if(positions[i].info.indexOf(input)!=-1){
                 addResult(positions[i].content);
             } 
         }
