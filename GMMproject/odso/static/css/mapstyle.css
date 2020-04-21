@@ -66,7 +66,15 @@ body{
     border: 2px solid rgb(0, 28, 87); 
 }
 
-
+.search_result{
+    position:absolute; 
+    z-index:3;
+    top: 60px;
+    width:95%;
+    margin:2.5%;
+    max-height: 60%;
+    background-color: white;
+}
 
 #city{
     position:absolute; 
