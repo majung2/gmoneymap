@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <div id="map" onclick="div_hide();"></div> 
+    <div id="map" onclick="detail_hide();"></div> 
 
     <div class="nav">
         <div id="nav_button">
@@ -37,13 +37,13 @@
 
 <script>
     //detail 보이기
-    function div_show(content) {
+    function detail_show(content) {
         detail.style.display = "",
         document.all("detail").innerHTML=content;
     }
     
-    //detail 숨기기
-    function div_hide() {
+    //지도 클릭 시 detail, city, result 숨기기
+    function detail_hide() {
         detail.style.display = "none"; 
         city.style.display = "none";
         result.style.display = "none";
@@ -184,7 +184,7 @@
 
     function addPosition(data){
         var dict={}
-        dict['content']='<div id="ti"><div id="title">' + data["name"] +
+        dict['content']='<div id="ti"><div id="title" onclick="marker_info('+ data["latitude"]+','+data["longitude"]+');">' + data["name"] +
             '</div><div id="industry">' + data["industry_name"] +
             '</div></div><div id="address">' + data["refine_road_address"] +
             '</div><div id="num">' + data["phone"] + 
@@ -262,10 +262,12 @@
             selectedMarker = marker;
 
             // 해당 마커의 상세내용을 보여줍니다
-            div_show(marker.getTitle());
+            detail_show(marker.getTitle());
 
             //해당 마커의 도시를 보여줍니다
             city_show(marker.getAltitude());
+
+            result.style.display = "none";
         });
 
     }
@@ -297,18 +299,25 @@
             $('#lg').empty();
         });
 
-        // 창 띄우기
+        // 결과창 띄우기, detail 숨기기
+        detail.style.display = "none";
+        city.style.display = "none";
         result.style.display = "";
 
         // 검색어 받기
         var input = document.getElementById("input").value;
-
 
         for (var i=0; i<positions.length; i++){
             if(positions[i].content.indexOf(input)!=-1){
                 addResult(positions[i].content);
             } 
         }
+    }
+
+    /////////////////////////////
+    // 가게명 눌렀을 때 해당 마커로 지도 이동 & 정보 띄우기
+    function marker_info(latitude,longitude){
+        location.href="?"+latitude+","+longitude;
     }
 
 
