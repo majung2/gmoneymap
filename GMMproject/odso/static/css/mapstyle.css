@@ -28,11 +28,12 @@ body{
 
 /* nav */ 
 
-.nav, #detail{
+.nav, #detail, #current{
     position:absolute; 
     z-index:2;
 } 
 .nav{
+    top:8px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -43,31 +44,38 @@ body{
 }
 #nav_button{
     height:60%;
-    width:10%;
-    padding: 0 8px 0 10px;
+    width:5%;
+    padding: 0 7px;
+}
+
+#current{
+    bottom:0;
+    right:0;
+    height:70px;
 }
 
 /* °Ë»ö */
-
+input:focus { outline:none; }
 .search{
-    width:70%;
+    width:90%;
     display: flex;
     justify-content: space-between;
     background-color: rgba(255, 255, 255, 0.8);
     border-radius: 10px;
-    border: 3px solid rgb(0, 28, 87); 
+    border: 3px solid rgb(0, 28, 87);
+    margin: 0 5px 0 0; 
 }
 #input{
     width:80%;
     border:0;
     background: none;
     padding: 0 0 0 10px;
-    font-size: 12px;
+    font-size: 15px;
     display: table-cell; vertical-align: middle
 }
 #search_button{
-    max-width:60px;
-    width:20%;
+    max-width:50px;
+    width:15%;
     background: rgb(0, 28, 87);
     color: white;
     border: 2px solid rgb(0, 28, 87); 
