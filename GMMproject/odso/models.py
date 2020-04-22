@@ -18,3 +18,8 @@ class Store(models.Model):
     latitude = models.FloatField()      # 위도
     longitude = models.FloatField()     # 경도
     last_updated_at = models.DateField()
+
+    class Meta:
+        indexes = [
+            models.Index(fields=['latitude', 'longitude', ]),
+        ]

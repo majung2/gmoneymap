@@ -38,10 +38,10 @@ class StoreList(generics.ListAPIView):
 
     def get_queryset(self):
         city_code = int(self.request.query_params.get('city_code', 0))
-        sw_latitude = float(self.request.query_params.get('sw_latitude', 35.0))
-        sw_longitude = float(self.request.query_params.get('sw_longitude', 125.0))
-        ne_latitude = float(self.request.query_params.get('ne_latitude', 40.0))
-        ne_longitude = float(self.request.query_params.get('ne_longitude', 128.0))
+        sw_latitude = float(self.request.query_params.get('sw_latitude', 37.265))
+        sw_longitude = float(self.request.query_params.get('sw_longitude', 126.995))
+        ne_latitude = float(self.request.query_params.get('ne_latitude', 37.275))
+        ne_longitude = float(self.request.query_params.get('ne_longitude', 127.005))
 
         queryset = Store.objects.all()
         queryset = queryset.filter(city__code__exact=city_code) if city_code else queryset
