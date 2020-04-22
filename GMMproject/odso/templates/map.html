@@ -21,7 +21,7 @@
             <a href="{% url 'home' %}"><img src="{% static 'image/back.png' %}" height="100%"></a>
         </div> 
         <div class="search">
-            <input id="input" type="text" placeholder="가게명, 주소, 전화번호로 검색" maxlength="15" onkeypress="search();">
+            <input id="input" type="text" placeholder="가게명/주소/전화번호/업종 키워드2개" maxlength="15" onkeypress="search();">
             <input type="submit" id="search_button" onclick="search();" value="검색">
         </div>
         <img src="{% static 'image/renew.png' %}" style="margin: 2px 3px 0 0;" height="90%" onclick="currentloc();">

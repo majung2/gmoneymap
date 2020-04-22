@@ -22,8 +22,8 @@
     <header>
         <img src="{% static 'image/gmlogo.png' %}" width="50px">
         <div class="title">
-            <img src="{% static 'image/logo.png' %}" width="200px"> 
-            <p>경기도 지역화폐 어디에 써?<br>가맹점 어디있어?</p>
+            <img src="{% static 'image/logo.png' %}" width="200px" style="margin:5px;"> 
+            <p style="margin:0;">경기도 지역화폐 어디에 써?<br>가맹점 어디 있어?</p>
         </div>
     </header>
 
@@ -48,7 +48,7 @@
                         
                     }
                 </script>
-                <p>주변 가맹점 정보 보기</p>
+                <p style="margin:5px;">주변 가맹점 정보 보기/검색</p>
             </div>
         </div>
         
@@ -56,11 +56,25 @@
     
     <footer>
         <div class="main2">
-            <p style="margin:5p; font-size:12px;">아직 재난기본소득 신청을 안 하셨나요?</p>
-            <a href="http://www.gmoney.or.kr/"><img src="{% static 'image/linkbutton.png' %}" width="200px"></a>
+            <p style="margin:5px; font-size:10px;">아직 재난기본소득 신청을 안 하셨나요?</p>
+            <a href="http://www.gmoney.or.kr/"><img src="{% static 'image/linkbutton.png' %}" width="180px"></a>
         </div>
-        <p>만든사람들: 이미정 구도원 이지윤<br>Copyrights 2020 © G_cos</p>
+        
+        <p id="info">
+        <a href="https://data.gg.go.kr/">데이터 출처 | 경기데이터드림</a><br>
+        <a href="https://github.com/majung2">기획/FE 이미정 </a>| BE 구도원 | <a href="https://www.instagram.com/ji.foto/">DESIGN 이지윤</a><br>문의 | <span OnClick="copy('dlalwjd1417@likelion.org');">dlalwjd1417@likelion.org</span></p>
+        <p style="color:gray; font-size:8px;">ⓒ 2020. MAJUNGE All Rights Reserved.</p>
     </footer>
+
+    <script>
+        function copy(text) {
+            $("body").append($("<textarea id='_copy_for_textarea'/>"));
+            $("#_copy_for_textarea").val(text)[0].select();
+            document.execCommand("Copy");
+            $("#_copy_for_textarea").remove();
+            alert(text + "가 복사 되었습니다.");
+          }
+    </script>
 </body>
 </html>
 
