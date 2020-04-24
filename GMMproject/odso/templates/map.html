@@ -18,7 +18,7 @@
     <!-- nav바: 뒤로가기, 검색창, 현위치다시받기 -->
     <div class="nav"> 
         <div id="nav_button">
-            <a href="{% url 'home' %}"><img src="{% static 'image/back.png' %}" height="90%"></a>
+            <a href="{% url 'home' %}"><img src="{% static 'image/back.png' %}" height="60%"></a>
         </div> 
         <div class="search">
             <input id="input" type="text" placeholder="가게명/주소/업종 키워드2개" maxlength="20" onkeypress="search();">
@@ -580,11 +580,11 @@
     ///////////////////////////////////////////////////////////
 
     var normimageSrc = '{% static "image/marker1.png" %}', // 마커이미지의 주소입니다    
-        normimageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
-        normimageOption = {offset: new kakao.maps.Point(27, 69)}, // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+        normimageSize = new kakao.maps.Size(100, 100), // 마커이미지의 크기입니다
+        normimageOption = {offset: new kakao.maps.Point(81, 30)}, // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
         clicimageSrc = '{% static "image/marker2.png" %}', // 마커이미지의 주소입니다    
-        clicimageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
-        clicimageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+        clicimageSize = new kakao.maps.Size(100, 100), // 마커이미지의 크기입니다
+        clicimageOption = {offset: new kakao.maps.Point(81, 30)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
     
     var selectedMarker = null; // 클릭한 마커를 담을 변수
 
@@ -744,7 +744,7 @@
         message += '지도 레벨은 ' + level + ' 입니다 \n \n';
         message += '지도의 남서쪽 좌표는 ' + swLatLng.getLat() + ', ' + swLatLng.getLng() + ' 이고 \n';
         message += '북동쪽 좌표는 ' + neLatLng.getLat() + ', ' + neLatLng.getLng() + ' 입니다';
-        alert(message);
+        //alert(message);
         
         // 개발자도구를 통해 직접 message 내용을 확인해 보세요.
         // ex) console.log(message);

@@ -39,6 +39,7 @@ body{
     align-items: center;
     width:100%;
     height:50px;
+    border-radius: 13px;
     background-color: rgba(255, 255, 255, 0.8);
     box-shadow: 0px 1px 20px 3px rgb(187, 187, 187);
 }
@@ -46,6 +47,7 @@ body{
     height:60%;
     width:5%;
     padding: 0 7px;
+    transform: translateY(1px);
 }
 
 #current{
@@ -54,15 +56,14 @@ body{
     height:70px;
 }
 
-/* �˻� */
+/* 검색 */
 input:focus { outline:none; }
 .search{
     width:90%;
     display: flex;
     justify-content: space-between;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 0.2);
     border-radius: 10px;
-    border: 3px solid rgb(0, 28, 87);
     margin: 0 5px 0 0; 
 }
 #input{
@@ -74,11 +75,16 @@ input:focus { outline:none; }
     display: table-cell; vertical-align: middle
 }
 #search_button{
+    margin: 0 10px 0 0;
+    padding: 0 0 0 12px;
     max-width:50px;
     width:15%;
-    background: rgb(0, 28, 87);
-    color: white;
-    border: 2px solid rgb(0, 28, 87); 
+    background: rgba(255, 255, 255, 0.1);
+    color: rgb(0, 28, 87);
+    border-left: 1px solid rgb(0, 28, 87);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 .search_result{
     position: absolute; 
@@ -116,11 +122,11 @@ input:focus { outline:none; }
     width:100%;
     background-color: white;
     padding:4%;
-    box-shadow: 0px -1px 20px 3px rgb(187, 187, 187);
-    border-radius: 10px 10px 0 0;
+    box-shadow: 0px -1px 50px 3px rgb(187, 187, 187);
+    border-radius: 13px;
 
     display: inline-block;
-    border-bottom: 10px solid rgb(0, 28, 87); 
+    border-bottom: 6px solid rgb(0, 28, 87); 
 
 }
 #ti{
@@ -130,8 +136,8 @@ input:focus { outline:none; }
 }
 #title{
     color:rgb(0, 28, 87);
-    font-size: 25px;
-    font-weight: 800;
+    font-size: 18px;
+    font-weight: 700;
 }
 #industry{
     color: gray;
@@ -143,116 +149,116 @@ input:focus { outline:none; }
     color:rgb(53, 53, 53); 
 }
 
-/* ���� �̹���, ��ȣ�� �� ���� �ڵ��ȣ */
-.city1{ /* ���� */
+/* 도시 이미지, 번호는 각 도시 코드번호 */
+.city1{ /* 양평 */
     width: 100px; height: 100px;
     background: url(../image/css_sprites.png) -10px -10px;
 }
-.city2{ /* ������ */
+.city2{ /* 의정부 */
     width: 100px; height: 100px;
     background: url(../image/css_sprites.png) -130px -10px;
 }
-.city3{ /* ȭ�� */
+.city3{ /* 화성 */
     width: 100px; height: 100px;
     background: url(../image/css_sprites.png)  -10px -130px;
 }
-.city4{ /* ���� */
+.city4{ /* 광주 */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -130px -130px;
 }
-.city5{ /* ���� */
+.city5{ /* 수원 */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -250px -10px;
 }
-.city6{ /* ���� */
+.city6{ /* 여주 */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -250px -130px;
 }
-.city7{ /* ��õ */
+.city7{ /* 인천 */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -10px -250px;
 }
-.city8{ /* ���� */
+.city8{ /* 구리 */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -130px -250px;
 }
-.city9{ /* �Ȼ� */
+.city9{ /* 안산 */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -250px -250px;
 }
-.city10{ /* ��õ */
+.city10{ /* 연천 */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -370px -10px;
 }
-.city11{ /* ���� */
+.city11{ /* 파주 */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -370px -130px;
 }
-.city12{ /* ���� */
+.city12{ /* 가평 */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -370px -250px;
 }
-.city13{ /* ���� */
+.city13{ /* 군포 */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -10px -370px;
 }
-.city14{ /* �ȼ� */
+.city14{ /* 안성 */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -130px -370px;
 }
-.city15{ /* ���� */
+.city15{ /* 오산 */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -250px -370px;
 }
-.city16{ /* ���� */
+.city16{ /* 평택 */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -370px -370px;
 }
-.city17{ /* ���� */
+.city17{ /* 고양 */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -490px -10px;
 }
-.city18{ /* ������ */
+.city18{ /* 남양주 */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -490px -130px;
 }
-.city19{ /* �Ⱦ� */
+.city19{ /* 안양 */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -490px -250px;
 }
-.city20{ /* ���� */
+.city20{ /* 용인 */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -490px -370px;
 }
-.city21{ /* ��õ */
+.city21{ /* 포천 */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -10px -490px;
 }
-.city22{ /* ��õ */
+.city22{ /* 과천 */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -130px -490px;
 }
-.city23{ /* ����õ */
+.city23{ /* 동두천 */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -250px -490px;
 }
-.city24{ /* ���� */
+.city24{ /* 양주 */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -370px -490px;
 }
-.city25{ /* �ǿ� */
+.city25{ /* 의왕 */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -490px -490px;
 }
-.city26{ /* �ϳ� */
+.city26{ /* 하남 */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -610px -10px;
 }
-.city27{ /* ���� */
+.city27{ /* 광명 */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -610px -130px;
 }
-.city28{ /* ��õ */
+.city28{ /* 부천 */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -610px -250px;
 }
