@@ -20,6 +20,9 @@
 
 <body>
     <header>
+        <div class="circle5">
+            <!--초록원-->
+        </div>
         <img src="{% static 'image/gmlogo.png' %}" width="50px">
         <div class="title">
             <img src="{% static 'image/logo.png' %}" width="200px" style="margin:5px;"> 
@@ -29,6 +32,13 @@
 
     <main>
         <div class="main1">
+            <div class="circle2">
+                <!--주황 원-->
+            </div>
+            <div class="circle1">
+                <!--초록 원-->
+            </div>
+            <p id="gamang">주변 가맹점 확인하기</p>
             <div class="map"  onclick="currentloc();">
                 <img src="{% static 'image/map.png' %}" width="200px">
                 <script>
@@ -48,13 +58,18 @@
                         
                     }
                 </script>
-                <p style="margin:5px;">주변 가맹점 정보 보기/검색</p>
             </div>
         </div>
         
     </main>
     
     <footer>
+        <div class="circle3">
+            <!--주황원-->
+        </div>
+        <div class="circle4">
+            <!--초록원-->
+        </div>
         <div class="main2">
             <p style="margin:5px; font-size:10px;">아직 재난기본소득 신청을 안 하셨나요?</p>
             <a href="http://www.gmoney.or.kr/"><img src="{% static 'image/linkbutton.png' %}" width="180px"></a>

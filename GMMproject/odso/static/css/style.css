@@ -19,7 +19,7 @@ body{
     text-align: center;
     font-size: 15px;
     /* navy ver & white ver */
-    color:white; background-color: #001c57;
+    color:white; background-color: #005EB1;
     /* background-color: white; color: #005dac; */
 }
 header{
@@ -33,11 +33,56 @@ header{
 main{
     height:80%;
 }
+
+.circle5{
+    background-color:rgb(180,225,0,0.8);
+    width:50px;
+    height:50px;
+    border-radius:300px;
+    margin:0 auto;
+    position: absolute;
+    transform: translate(270px,-50px)
+}
+.circle1{
+    background-color:#B4E100;
+    width:180px;
+    height:180px;
+    border-radius:300px;
+    margin:0 auto;
+    position: relative;
+    transform: translate(-120px,0px)
+}
+
+.circle2{
+    background-color:#FF9400;
+    width:120px;
+    height:120px;
+    border-radius:300px;
+    margin:0 auto;
+    position: absolute;
+    transform: translate(-65px,-95px)
+}
+
+.map{
+    position: absolute;
+    transform: translate(0,30px);
+    z-index: 1;
+}
+
+#gamang{
+    margin:5px;
+    color: black;
+    position: absolute;
+    z-index: 2;
+    font-weight: 600;
+    transform: translate(0,30px);
+}
+
 .main1{
     margin:0;
     height:70%;
     max-height: 300px;
-    padding:10% 0;
+    padding:25% 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -56,6 +101,26 @@ button{
     border: 2px solid rgb(255, 255, 255); 
     padding: 12px;
     color:white;
+}
+
+.circle3{
+    background-color:rgb(225, 148, 0,0.8);
+    width:70px;
+    height:70px;
+    border-radius:300px;
+    margin:0 auto;
+    position: absolute;
+    transform: translate(250px,-50px);
+}
+
+.circle4{
+    background-color:rgb(180,225,0,0.7);
+    width:30px;
+    height:30px;
+    border-radius:300px;
+    margin:0 auto;
+    position: absolute;
+    transform: translate(320px,80px);
 }
 
 footer{
