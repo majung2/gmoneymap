@@ -54,7 +54,7 @@ body{
     height:70px;
 }
 
-/* °Ë»ö */
+/* ï¿½Ë»ï¿½ */
 input:focus { outline:none; }
 .search{
     width:90%;
@@ -143,116 +143,116 @@ input:focus { outline:none; }
     color:rgb(53, 53, 53); 
 }
 
-/* µµ½Ã ÀÌ¹ÌÁö, ¹øÈ£´Â °¢ µµ½Ã ÄÚµå¹øÈ£ */
-.city1{ /* ¾çÆò */
+/* ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½, ï¿½ï¿½È£ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½ï¿½È£ */
+.city1{ /* ï¿½ï¿½ï¿½ï¿½ */
     width: 100px; height: 100px;
     background: url(../image/css_sprites.png) -10px -10px;
 }
-.city2{ /* ÀÇÁ¤ºÎ */
+.city2{ /* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
     width: 100px; height: 100px;
     background: url(../image/css_sprites.png) -130px -10px;
 }
-.city3{ /* È­¼º */
+.city3{ /* È­ï¿½ï¿½ */
     width: 100px; height: 100px;
     background: url(../image/css_sprites.png)  -10px -130px;
 }
-.city4{ /* ±¤ÁÖ */
+.city4{ /* ï¿½ï¿½ï¿½ï¿½ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -130px -130px;
 }
-.city5{ /* ¼ö¿ø */
+.city5{ /* ï¿½ï¿½ï¿½ï¿½ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -250px -10px;
 }
-.city6{ /* ¿©ÁÖ */
+.city6{ /* ï¿½ï¿½ï¿½ï¿½ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -250px -130px;
 }
-.city7{ /* ÀÎÃµ */
+.city7{ /* ï¿½ï¿½Ãµ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -10px -250px;
 }
-.city8{ /* ±¸¸® */
+.city8{ /* ï¿½ï¿½ï¿½ï¿½ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -130px -250px;
 }
-.city9{ /* ¾È»ê */
+.city9{ /* ï¿½È»ï¿½ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -250px -250px;
 }
-.city10{ /* ¿¬Ãµ */
+.city10{ /* ï¿½ï¿½Ãµ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -370px -10px;
 }
-.city11{ /* ÆÄÁÖ */
+.city11{ /* ï¿½ï¿½ï¿½ï¿½ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -370px -130px;
 }
-.city12{ /* °¡Æò */
+.city12{ /* ï¿½ï¿½ï¿½ï¿½ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -370px -250px;
 }
-.city13{ /* ±ºÆ÷ */
+.city13{ /* ï¿½ï¿½ï¿½ï¿½ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -10px -370px;
 }
-.city14{ /* ¾È¼º */
+.city14{ /* ï¿½È¼ï¿½ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -130px -370px;
 }
-.city15{ /* ¿À»ê */
+.city15{ /* ï¿½ï¿½ï¿½ï¿½ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -250px -370px;
 }
-.city16{ /* ÆòÅÃ */
+.city16{ /* ï¿½ï¿½ï¿½ï¿½ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -370px -370px;
 }
-.city17{ /* °í¾ç */
+.city17{ /* ï¿½ï¿½ï¿½ï¿½ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -490px -10px;
 }
-.city18{ /* ³²¾çÁÖ */
+.city18{ /* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -490px -130px;
 }
-.city19{ /* ¾È¾ç */
+.city19{ /* ï¿½È¾ï¿½ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -490px -250px;
 }
-.city20{ /* ¿ëÀÎ */
+.city20{ /* ï¿½ï¿½ï¿½ï¿½ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -490px -370px;
 }
-.city21{ /* Æ÷Ãµ */
+.city21{ /* ï¿½ï¿½Ãµ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -10px -490px;
 }
-.city22{ /* °úÃµ */
+.city22{ /* ï¿½ï¿½Ãµ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -130px -490px;
 }
-.city23{ /* µ¿µÎÃµ */
+.city23{ /* ï¿½ï¿½ï¿½ï¿½Ãµ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -250px -490px;
 }
-.city24{ /* ¾çÁÖ */
+.city24{ /* ï¿½ï¿½ï¿½ï¿½ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -370px -490px;
 }
-.city25{ /* ÀÇ¿Õ */
+.city25{ /* ï¿½Ç¿ï¿½ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -490px -490px;
 }
-.city26{ /* ÇÏ³² */
+.city26{ /* ï¿½Ï³ï¿½ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -610px -10px;
 }
-.city27{ /* ±¤¸í */
+.city27{ /* ï¿½ï¿½ï¿½ï¿½ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -610px -130px;
 }
-.city28{ /* ºÎÃµ */
+.city28{ /* ï¿½ï¿½Ãµ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -610px -250px;
 }
