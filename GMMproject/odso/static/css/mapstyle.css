@@ -54,7 +54,7 @@ body{
     height:70px;
 }
 
-/* °Ë»ö */
+/* ê²€ìƒ‰ */
 input:focus { outline:none; }
 .search{
     width:90%;
@@ -143,116 +143,116 @@ input:focus { outline:none; }
     color:rgb(53, 53, 53); 
 }
 
-/* µµ½Ã ÀÌ¹ÌÁö, ¹øÈ£´Â °¢ µµ½Ã ÄÚµå¹øÈ£ */
-.city1{ /* ¾çÆò */
+/* ë„ì‹œ ì´ë¯¸ì§€, ë²ˆí˜¸ëŠ” ê° ë„ì‹œ ì½”ë“œë²ˆí˜¸ */
+.city1{ /* ì–‘í‰ */
     width: 100px; height: 100px;
     background: url(../image/css_sprites.png) -10px -10px;
 }
-.city2{ /* ÀÇÁ¤ºÎ */
+.city2{ /* ì˜ì •ë¶€ */
     width: 100px; height: 100px;
     background: url(../image/css_sprites.png) -130px -10px;
 }
-.city3{ /* È­¼º */
+.city3{ /* í™”ì„± */
     width: 100px; height: 100px;
     background: url(../image/css_sprites.png)  -10px -130px;
 }
-.city4{ /* ±¤ÁÖ */
+.city4{ /* ê´‘ì£¼ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -130px -130px;
 }
-.city5{ /* ¼ö¿ø */
+.city5{ /* ìˆ˜ì› */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -250px -10px;
 }
-.city6{ /* ¿©ÁÖ */
+.city6{ /* ì—¬ì£¼ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -250px -130px;
 }
-.city7{ /* ÀÎÃµ */
+.city7{ /* ì¸ì²œ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -10px -250px;
 }
-.city8{ /* ±¸¸® */
+.city8{ /* êµ¬ë¦¬ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -130px -250px;
 }
-.city9{ /* ¾È»ê */
+.city9{ /* ì•ˆì‚° */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -250px -250px;
 }
-.city10{ /* ¿¬Ãµ */
+.city10{ /* ì—°ì²œ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -370px -10px;
 }
-.city11{ /* ÆÄÁÖ */
+.city11{ /* íŒŒì£¼ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -370px -130px;
 }
-.city12{ /* °¡Æò */
+.city12{ /* ê°€í‰ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -370px -250px;
 }
-.city13{ /* ±ºÆ÷ */
+.city13{ /* êµ°í¬ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -10px -370px;
 }
-.city14{ /* ¾È¼º */
+.city14{ /* ì•ˆì„± */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -130px -370px;
 }
-.city15{ /* ¿À»ê */
+.city15{ /* ì˜¤ì‚° */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -250px -370px;
 }
-.city16{ /* ÆòÅÃ */
+.city16{ /* í‰íƒ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -370px -370px;
 }
-.city17{ /* °í¾ç */
+.city17{ /* ê³ ì–‘ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -490px -10px;
 }
-.city18{ /* ³²¾çÁÖ */
+.city18{ /* ë‚¨ì–‘ì£¼ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -490px -130px;
 }
-.city19{ /* ¾È¾ç */
+.city19{ /* ì•ˆì–‘ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -490px -250px;
 }
-.city20{ /* ¿ëÀÎ */
+.city20{ /* ìš©ì¸ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -490px -370px;
 }
-.city21{ /* Æ÷Ãµ */
+.city21{ /* í¬ì²œ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -10px -490px;
 }
-.city22{ /* °úÃµ */
+.city22{ /* ê³¼ì²œ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -130px -490px;
 }
-.city23{ /* µ¿µÎÃµ */
+.city23{ /* ë™ë‘ì²œ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -250px -490px;
 }
-.city24{ /* ¾çÁÖ */
+.city24{ /* ì–‘ì£¼ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -370px -490px;
 }
-.city25{ /* ÀÇ¿Õ */
+.city25{ /* ì˜ì™• */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -490px -490px;
 }
-.city26{ /* ÇÏ³² */
+.city26{ /* í•˜ë‚¨ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -610px -10px;
 }
-.city27{ /* ±¤¸í */
+.city27{ /* ê´‘ëª… */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -610px -130px;
 }
-.city28{ /* ºÎÃµ */
+.city28{ /* ë¶€ì²œ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -610px -250px;
 }
