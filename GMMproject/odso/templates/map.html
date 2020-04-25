@@ -27,8 +27,6 @@
         <!-- <img src="{% static 'image/renew.png' %}" style="margin: 2px 2px 0 0;" height="90%" onclick="currentloc();"> -->
     </div>
 
-    
-    
     <!-- 검색결과 -->
     <div class="search_result" id="result">
         <div class="scrollBlind" style="display:none" id="sb">
@@ -45,7 +43,7 @@
     
 
 <script>
-    //detail 보이기
+   //detail 보이기
     function detail_show(content) {
         detail.style.display = "",
         document.all("detail").innerHTML=content;
@@ -121,27 +119,44 @@
 
     ////////////////////////////////////////////
     //데이터 받기//
+    var storesJS =[]; //JSON 데이터 받을 배열
 
-    var data =[
-    ]
+    getDatas(getSWInfo(),getNEInfo());
 
-    // 마커를 표시할 위치와 title 객체 배열입니다 
-    var positions = []
-
-    for (var i=0;i<data.length;i++){
-        addPosition(data[i]);
+    function getDatas(sw,ne){
+        storesJS =[];
+        $.getJSON("http://ec2-100-27-31-8.compute-1.amazonaws.com:8000/api/v1/stores/", 
+        {   
+            sw_latitude: sw.getLat(),
+            sw_longitude: sw.getLng(),
+            ne_latitude: ne.getLat(),
+            ne_longitude: ne.getLng()
+        }, 
+            function (data) {
+                $.each(data, function (key, value) {
+                    storesJS.push(value);
+            });
+        });
     }
 
-    function addPosition(data){
+
+    // 마커를 표시할 위치와 title 객체 배열입니다 
+    var positions = [];
+
+    for (var i=0;i<storesJS.length;i++){
+        addPosition(storesJS[i]);
+    }
+
+    function addPosition(storesJS){
         var dict={}
-        dict['content']='<div id="ti"><div id="title" onclick="marker_info('+ data["latitude"]+','+data["longitude"]+');">' + data["name"] +
-            '</div><div id="industry">' + data["industry_name"] +
-            '</div></div><div id="address">' + data["refine_road_address"] +
-            '</div><div id="num">' + data["phone"] + 
+        dict['content']='<div id="ti"><div id="title" onclick="marker_info('+ storesJS["latitude"]+','+storesJS["longitude"]+');">' + storesJS["name"] +
+            '</div><div id="industry">' + storesJS["industry_name"] +
+            '</div></div><div id="address">' + storesJS["refine_road_address"] +
+            '</div><div id="num">' + storesJS["phone"] + 
             '</div>';
-        dict['latlng']=new kakao.maps.LatLng(data["latitude"],data["longitude"]);
-        dict['city']= data["city"]["code"];
-        dict['info']=data["name"]+data["industry_name"]+data["refine_road_address"]+data["refine_num_address"]+data["phone"];
+        dict['latlng']=new kakao.maps.LatLng(storesJS["latitude"],storesJS["longitude"]);
+        dict['city']= storesJS["city"]["code"];
+        dict['info']=storesJS["name"]+storesJS["industry_name"]+storesJS["refine_road_address"]+storesJS["refine_num_address"]+storesJS["phone"];
         positions.push(dict)
     }
 
@@ -274,49 +289,29 @@
     // 지도 레벨 얻기
 
 
-    // 지도가 확대 또는 축소되면 마지막 파라미터로 넘어온 함수를 호출하도록 이벤트를 등록합니다
-    kakao.maps.event.addListener(map, 'zoom_changed', function() {        
-        getInfo();
-
-        
+    // 지도가 이동, 확대 또는 축소되면 마지막 파라미터로 넘어온 함수를 호출하도록 이벤트를 등록합니다
+    kakao.maps.event.addListener(map, 'bounds_changed', function() {        
+        getDatas(getSWInfo(),getNEInfo());  
     });
 
-    // 마우스 드래그로 지도 이동이 완료되었을 때 마지막 파라미터로 넘어온 함수를 호출하도록 이벤트를 등록합니다
-    kakao.maps.event.addListener(map, 'dragend', function() {        
-        getInfo();
-        
-    });
 
-    function getInfo() {
-        // 지도의 현재 중심좌표를 얻어옵니다 
-        var center = map.getCenter(); 
-        
-        // 지도의 현재 레벨을 얻어옵니다
-        var level = map.getLevel();
-
+    function getSWInfo() { //지도 남서쪽 좌표 얻기
         // 지도의 현재 영역을 얻어옵니다 
         var bounds = map.getBounds();
         
         // 영역의 남서쪽 좌표를 얻어옵니다 
-        var swLatLng = bounds.getSouthWest(); 
-        
-        // 영역의 북동쪽 좌표를 얻어옵니다 
-        var neLatLng = bounds.getNorthEast(); 
-        
-        // 영역정보를 문자열로 얻어옵니다. ((남,서), (북,동)) 형식입니다
-        var boundsStr = bounds.toString();
-        
-        
-        var message = '지도 중심좌표는 위도 ' + center.getLat() + ',\n';
-        message += '경도 ' + center.getLng() + ' 이고 \n';
-        message += '지도 레벨은 ' + level + ' 입니다 \n \n';
-        message += '지도의 남서쪽 좌표는 ' + swLatLng.getLat() + ', ' + swLatLng.getLng() + ' 이고 \n';
-        message += '북동쪽 좌표는 ' + neLatLng.getLat() + ', ' + neLatLng.getLng() + ' 입니다';
-        //alert(message);
-        
-        // 개발자도구를 통해 직접 message 내용을 확인해 보세요.
-        // ex) console.log(message);
+        var swLatLng = bounds.getSouthWest(); // swLatLng.getLat(), swLatLng.getLng()
+        return swLatLng
     }
+    function getNEInfo(){ //지도 북동쪽 좌표 얻기
+        // 지도의 현재 영역을 얻어옵니다 
+        var bounds = map.getBounds();
+
+        // 영역의 북동쪽 좌표를 얻어옵니다 
+        var neLatLng = bounds.getNorthEast(); // neLatLng.getLat(),neLatLng.getLng()
+        return neLatLng
+    }
+
 
     
 
