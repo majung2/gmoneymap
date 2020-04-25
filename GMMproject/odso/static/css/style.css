@@ -70,11 +70,11 @@ main{
 }
 
 #gamang{
-    margin:5px;
-    color: black;
+    margin:7px;
+    color: white;
     position: absolute;
     z-index: 2;
-    font-weight: 600;
+    font-weight: 500;
     transform: translate(0,30px);
 }
 
