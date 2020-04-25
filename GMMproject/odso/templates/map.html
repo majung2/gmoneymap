@@ -9,64 +9,57 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css"> <!--나눔스퀘어 폰트-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> <!--부트스트랩-->
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3ee8e0692190c94bbe63d42f7dbe7aeb"></script> <!--지도API-->
-    <script src="http://code.jquery.com/jquery-1.11.0.js"></script> <!--현위치 받기-->
+    <script src="http://code.jquery.com/jquery-1.11.0.js"></script> <!--현위치 받기, 내용 없애기-->
 </head>
 
 <body>
-    <div id="map" onclick="div_hide();"></div> 
+    <div id="map" onclick="detail_hide();"></div> 
 
-    <div class="nav">
+    <!-- nav바: 뒤로가기, 검색창, 현위치다시받기 -->
+    <div class="nav"> 
         <div id="nav_button">
-            <a href="{% url 'home' %}"><img src="{% static 'image/back.png' %}" height="100%"></a>
+            <a href="{% url 'home' %}"><img src="{% static 'image/back.png' %}" height="60%"></a>
         </div> 
-        <!-- <div class="search">
-            <input id="search_box" type="text" placeholder="검색어 입력">
-            <button id="search_button">검색</button>
-        </div> -->
-        <img src="{% static 'image/renew.png' %}" style="margin: 0 7px 0 0;" height="90%" onclick="currentloc();">
+        <div class="search">
+            <input id="input" type="text" placeholder="가게명/주소/업종 키워드2개" maxlength="20" onkeypress="search();">
+            <input type="submit" id="search_button" onclick="search();" value="검색">
+        </div>
+        <!-- <img src="{% static 'image/renew.png' %}" style="margin: 2px 2px 0 0;" height="90%" onclick="currentloc();"> -->
     </div>
 
-    <!-- <div class="search_result">
-        <ul>
-            <li>랄라</li>
-            <li>랄라</li>
-            <li>랄라</li>
-            <li>랄라</li>
-            <li>랄라</li>
-            <li>랄라</li>
-            <li>랄라</li>
-            <li>랄라</li>
-            <li>랄라</li>
-            <li>랄라</li>
-            <li>랄라</li>
-            <li>랄라</li>
-            <li>랄라</li>
-            <li>랄라</li>
-            <li>랄라</li>
-            <li>랄라</li>
-            <li>랄라</li>
-            <li>랄라</li>
-            <li>랄라</li>
-            <li>랄라</li>
-            <li>랄라</li>
-        </ul>
+    
+    
+    <!-- 검색결과 -->
+    <div class="search_result" id="result">
+        <div class="scrollBlind" style="display:none" id="sb">
+            <ul class="list-group" id="lg">
+            </ul>
+        </div>
     </div>
-     -->
+    
+    <img src="{% static 'image/renew.png' %}" id="current" style="margin: 2px 2px 0 0;" onclick="currentloc();">
+
+    <!-- 상세페이지 -->
     <div id="city" style="display:none"></div>
     <div id="detail" style="display:none"></div>
     
 
 <script>
     //detail 보이기
-    function div_show(content) {
+    function detail_show(content) {
         detail.style.display = "",
         document.all("detail").innerHTML=content;
     }
     
-    //detail 숨기기
-    function div_hide() {
-        detail.style.display = "none";
-        city.style.display = "none"
+    //지도 클릭 시 detail, city, result 숨기기
+    function detail_hide() {
+        detail.style.display = "none"; 
+        city.style.display = "none";
+        result.style.display = "none";
+        current.style.display = "";
+
+        selectedMarker.setImage(selectedMarker.normalImage);
+        selectedMarker = null;
     }
 
     //city 정보 보이기
@@ -117,10 +110,11 @@
         
     // 현재위치 이미지를 생성합니다    
     var currentImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
+    var currentLatlng = new kakao.maps.LatLng(lat, lon);
 
     var marker = new kakao.maps.Marker({ 
         map: map, // 마커를 표시할 지도
-        position: new kakao.maps.LatLng(lat, lon), // 마커를 표시할 위치
+        position: currentLatlng, // 마커를 표시할 위치
         image: currentImage,
     });
 
@@ -131,11 +125,43 @@
     var data =[
         {
             "id": "27a80d92d1734b7ca8269a66447a1dc3",
+            "name": "크피아",
+            "industry_name": "세탁업",
+            "city": {
+                "code": 1,
+                "name": "용인시"
+            },
+            "refine_road_address": "경기도 용인시 권선구 금곡로 45",
+            "refine_num_address": "경기도 수원시 권선구 금곡동 153번지",
+            "phone": "010-1234-1234",
+            "zip_code": "12345",
+            "latitude": 37.3234, 
+            "longitude": 127.0824,
+            "last_updated_at": "2019-09-30"
+        },
+        {
+            "id": "27a80d92d1734b7ca8269a66447a1dc3",
             "name": "크린토피아",
             "industry_name": "세탁업",
             "city": {
                 "code": 1,
                 "name": "수원시"
+            },
+            "refine_road_address": "경기도 용인시 권선구 금곡로 45",
+            "refine_num_address": "경기도 수원시 권선구 금곡동 153번지",
+            "phone": "010-1234-1234",
+            "zip_code": "12345",
+            "latitude": 37.3234, 
+            "longitude": 127.0824,
+            "last_updated_at": "2019-09-30"
+        },
+        {
+            "id": "27a80d92d1734b7ca8269a66447a1dc3",
+            "name": "랄랄아",
+            "industry_name": "세탁업",
+            "city": {
+                "code": 1,
+                "name": "용인시"
             },
             "refine_road_address": "경기도 수원시 권선구 금곡로 45",
             "refine_num_address": "경기도 수원시 권선구 금곡동 153번지",
@@ -147,7 +173,39 @@
         },
         {
             "id": "27a80d92d1734b7ca8269a66447a1dc3",
-            "name": "크린토피아",
+            "name": "랄랄루",
+            "industry_name": "세탁업",
+            "city": {
+                "code": 1,
+                "name": "수원시"
+            },
+            "refine_road_address": "경기도 수원시 권선구 금곡로 45",
+            "refine_num_address": "경기도 수원시 권선구 금곡동 153번지",
+            "phone": "010-1234-1234",
+            "zip_code": "12345",
+            "latitude": 37.32347, 
+            "longitude": 127.0824,
+            "last_updated_at": "2019-09-30"
+        },
+        {
+            "id": "27a80d92d1734b7ca8269a66447a1dc3",
+            "name": "토피아",
+            "industry_name": "세탁업",
+            "city": {
+                "code": 1,
+                "name": "수원시"
+            },
+            "refine_road_address": "경기도 수원시 권선구 금곡로 45",
+            "refine_num_address": "경기도 수원시 권선구 금곡동 153번지",
+            "phone": "010-1234-1234",
+            "zip_code": "12345",
+            "latitude": 37.3234, 
+            "longitude": 127.08248,
+            "last_updated_at": "2019-09-30"
+        },
+        {
+            "id": "27a80d92d1734b7ca8269a66447a1dc3",
+            "name": "크린",
             "industry_name": "세탁업",
             "city": {
                 "code": 2,
@@ -163,7 +221,7 @@
         },
         {
             "id": "27a80dca8269a66447a1dc3",
-            "name": "빈스앤브래드",
+            "name": "빈스",
             "industry_name": "카페",
             "city": {
                 "code": 3,
@@ -192,6 +250,310 @@
             "latitude": 37.3210133,
             "longitude": 127.09365,
             "last_updated_at": "2019-09-30"
+        },
+        {
+            "id": "148e9be2da3b4b96b43367da4ab05a3c",
+            "name": "안치선곰탕",
+            "industry_name": "음식점 - 한식",
+            "city": {
+                "code": 41220,
+                "name": "평택시"
+            },
+            "refine_road_address": "경기도 평택시 진위면 삼남로 749",
+            "refine_num_address": "경기도 평택시 진위면 마산리 723번지",
+            "phone": "031-611-2955",
+            "zip_code": "17718",
+            "latitude": 37.090093291,
+            "longitude": 127.09027591,
+            "last_updated_at": "2019-06-30"
+        },
+        {
+            "id": "370ddde697b043bcb218590f5e8b0b2d",
+            "name": "안치선곰탕",
+            "industry_name": "일반휴게음식 - 일반한식",
+            "city": {
+                "code": 41220,
+                "name": "평택시"
+            },
+            "refine_road_address": "경기도 평택시 진위면 삼남로 749",
+            "refine_num_address": "경기도 평택시 진위면 마산리 723번지 1층",
+            "phone": "031-665-5449",
+            "zip_code": "17718",
+            "latitude": 37.090093291,
+            "longitude": 127.09027591,
+            "last_updated_at": "2019-06-30"
+        },
+        {
+            "id": "510c2f6fee184a2f95588bb3bcac13f5",
+            "name": "경기남부테라코",
+            "industry_name": "건축자재 - 페인트",
+            "city": {
+                "code": 41220,
+                "name": "평택시"
+            },
+            "refine_road_address": "경기도 평택시 진위면 마산길 6",
+            "refine_num_address": "경기도 평택시 진위면 마산리 309-8번지",
+            "phone": "031-375-3529",
+            "zip_code": "17716",
+            "latitude": 37.091262941,
+            "longitude": 127.09258305,
+            "last_updated_at": "2019-06-30"
+        },
+        {
+            "id": "25030a5ff103459a902b8c85cd8591e1",
+            "name": "합동카고크레인",
+            "industry_name": "기타 - 기계공구",
+            "city": {
+                "code": 41220,
+                "name": "평택시"
+            },
+            "refine_road_address": "경기도 평택시 진위면 삼봉로 332",
+            "refine_num_address": "경기도 평택시 진위면 마산리 759번지",
+            "phone": "031-666-0977",
+            "zip_code": "17716",
+            "latitude": 37.091758018,
+            "longitude": 127.09324725,
+            "last_updated_at": "2019-06-30"
+        },
+        {
+            "id": "92962e6a285646118ea39312a6696d0c",
+            "name": "에이스아처리",
+            "industry_name": "신변잡화 - 액세서리",
+            "city": {
+                "code": 41220,
+                "name": "평택시"
+            },
+            "refine_road_address": "경기도 평택시 진위면 삼봉로 360",
+            "refine_num_address": "경기도 평택시 진위면 마산리 191-5번지",
+            "phone": "000-1588-3252",
+            "zip_code": "17716",
+            "latitude": 37.091818615,
+            "longitude": 127.09644172,
+            "last_updated_at": "2019-06-30"
+        },
+        {
+            "id": "b9c9f3fafc01433eb45beac1c5079b69",
+            "name": "파란지붕",
+            "industry_name": "문화.취미 - 문화취미기타",
+            "city": {
+                "code": 41220,
+                "name": "평택시"
+            },
+            "refine_road_address": "경기도 평택시 진위면 삼봉로 360",
+            "refine_num_address": "경기도 평택시 진위면 마산리 191-5번지 1층",
+            "phone": "031-664-7575",
+            "zip_code": "17716",
+            "latitude": 37.091818615,
+            "longitude": 127.09644172,
+            "last_updated_at": "2019-06-30"
+        },
+        {
+            "id": "73b49d3cc2dc4d49a561c4bf2bcfbea2",
+            "name": "봉담골",
+            "industry_name": "일반휴게음식 - 일반한식",
+            "city": {
+                "code": 41220,
+                "name": "평택시"
+            },
+            "refine_road_address": "경기도 평택시 진위면 삼봉로 358",
+            "refine_num_address": "경기도 평택시 진위면 마산리 191-1번지",
+            "phone": "031-664-8784",
+            "zip_code": "17716",
+            "latitude": 37.091818916,
+            "longitude": 127.09605929,
+            "last_updated_at": "2019-06-30"
+        },
+        {
+            "id": "8888b275c77547e2b6619c9a294d1082",
+            "name": "송이불버섯",
+            "industry_name": "일반휴게음식 - 일반한식",
+            "city": {
+                "code": 41220,
+                "name": "평택시"
+            },
+            "refine_road_address": "경기도 평택시 진위면 삼봉로 358",
+            "refine_num_address": "경기도 평택시 진위면 마산리 191-1번지",
+            "phone": "031-663-6295",
+            "zip_code": "17716",
+            "latitude": 37.091818916,
+            "longitude": 127.09605929,
+            "last_updated_at": "2019-06-30"
+        },
+        {
+            "id": "17fff73bfa954287ba48bf02ac2ce319",
+            "name": "삼보가든",
+            "industry_name": "일반휴게음식 - 일반한식",
+            "city": {
+                "code": 41220,
+                "name": "평택시"
+            },
+            "refine_road_address": "경기도 평택시 진위면 삼봉로 386",
+            "refine_num_address": "경기도 평택시 진위면 마산리 194-3번지",
+            "phone": "031-611-2950",
+            "zip_code": "17716",
+            "latitude": 37.092347967,
+            "longitude": 127.09927685,
+            "last_updated_at": "2019-06-30"
+        },
+        {
+            "id": "89a3dd57c3eb4053be3e4d286036dedc",
+            "name": "24포유",
+            "industry_name": "용역 서비스 - 기타용역서비스",
+            "city": {
+                "code": 41220,
+                "name": "평택시"
+            },
+            "refine_road_address": "경기도 평택시 진위면 삼봉로 386",
+            "refine_num_address": "경기도 평택시 진위면 마산리 194-3번지 1층",
+            "phone": "031-1566-2924",
+            "zip_code": "17716",
+            "latitude": 37.092347967,
+            "longitude": 127.09927685,
+            "last_updated_at": "2019-06-30"
+        },
+        {
+            "id": "ea1026b723ae440099dfae02f6302a76",
+            "name": "봉남농원",
+            "industry_name": "문화.취미 - 화원",
+            "city": {
+                "code": 41220,
+                "name": "평택시"
+            },
+            "refine_road_address": "경기도 평택시 진위면 진위로 28",
+            "refine_num_address": "경기도 평택시 진위면 봉남리139-3",
+            "phone": "031-664-7086",
+            "zip_code": "17712",
+            "latitude": 37.097759551,
+            "longitude": 127.09257945,
+            "last_updated_at": "2019-06-30"
+        },
+        {
+            "id": "1cef27cbde92462894f19a1d165c748a",
+            "name": "한일유통",
+            "industry_name": "음료식품 - 제과점",
+            "city": {
+                "code": 41220,
+                "name": "평택시"
+            },
+            "refine_road_address": "경기도 평택시 진위면 진위로 18",
+            "refine_num_address": "경기도 평택시 진위면 봉남리 139-14번지",
+            "phone": "031-611-9843",
+            "zip_code": "17712",
+            "latitude": 37.097814527,
+            "longitude": 127.09136465,
+            "last_updated_at": "2019-06-30"
+        },
+        {
+            "id": "d371dd2ac59d4368bda8b163545765a4",
+            "name": "삼영정미소",
+            "industry_name": "음료식품 - 미곡상",
+            "city": {
+                "code": 41220,
+                "name": "평택시"
+            },
+            "refine_road_address": "경기도 평택시 진위면 진위로 18",
+            "refine_num_address": "경기도 평택시 진위면 봉남리 139-14번지",
+            "phone": "031-611-6472",
+            "zip_code": "17712",
+            "latitude": 37.097814527,
+            "longitude": 127.09136465,
+            "last_updated_at": "2019-06-30"
+        },
+        {
+            "id": "04c38be58b2b4c5d959d9514bf1595d2",
+            "name": "선굼터",
+            "industry_name": "일반휴게음식 - 일반한식",
+            "city": {
+                "code": 41220,
+                "name": "평택시"
+            },
+            "refine_road_address": "경기도 평택시 진위면 봉남길 99",
+            "refine_num_address": "경기도 평택시 진위면 봉남리 170-1번지 1층",
+            "phone": "031-662-8252",
+            "zip_code": "17712",
+            "latitude": 37.098199857,
+            "longitude": 127.09416605,
+            "last_updated_at": "2019-06-30"
+        },
+        {
+            "id": "875f6695ecd04e90b7fd8f55d1f5beb1",
+            "name": "선굼터",
+            "industry_name": "음식점 - 한식",
+            "city": {
+                "code": 41220,
+                "name": "평택시"
+            },
+            "refine_road_address": "경기도 평택시 진위면 봉남길 99",
+            "refine_num_address": "경기도 평택시 진위면 봉남리 170-1번지 1층",
+            "phone": "031-663-5954",
+            "zip_code": "17712",
+            "latitude": 37.098199857,
+            "longitude": 127.09416605,
+            "last_updated_at": "2019-06-30"
+        },
+        {
+            "id": "b65cbb4eb7424446a0059db772990752",
+            "name": "카페모리",
+            "industry_name": "음식점 - 한식",
+            "city": {
+                "code": 41220,
+                "name": "평택시"
+            },
+            "refine_road_address": "경기도 평택시 진위면 봉남길 99",
+            "refine_num_address": "경기도 평택시 진위면 봉남리 170-1번지 2층",
+            "phone": "",
+            "zip_code": "17712",
+            "latitude": 37.098199857,
+            "longitude": 127.09416605,
+            "last_updated_at": "2019-06-30"
+        },
+        {
+            "id": "cdca7caadd4e4435b2b3e590f62d4f9a",
+            "name": "모리",
+            "industry_name": "일반휴게음식 - 일반한식",
+            "city": {
+                "code": 41220,
+                "name": "평택시"
+            },
+            "refine_road_address": "경기도 평택시 진위면 봉남길 99",
+            "refine_num_address": "경기도 평택시 진위면 봉남리 170-1번지",
+            "phone": "031-667-1143",
+            "zip_code": "17712",
+            "latitude": 37.098199857,
+            "longitude": 127.09416605,
+            "last_updated_at": "2019-06-30"
+        },
+        {
+            "id": "60ed2f475b2b47c1aedb13b34ca392ce",
+            "name": "진위장수촌",
+            "industry_name": "음식점 - 한식",
+            "city": {
+                "code": 41220,
+                "name": "평택시"
+            },
+            "refine_road_address": "경기도 평택시 진위면 봉남길 89",
+            "refine_num_address": "경기도 평택시 진위면 봉남리 172-1번지",
+            "phone": "031-611-9940",
+            "zip_code": "17712",
+            "latitude": 37.098344852,
+            "longitude": 127.09308634,
+            "last_updated_at": "2019-06-30"
+        },
+        {
+            "id": "90650b5dd62f41c88f2aa84ec948bfe3",
+            "name": "진위장수촌",
+            "industry_name": "일반휴게음식 - 일반한식",
+            "city": {
+                "code": 41220,
+                "name": "평택시"
+            },
+            "refine_road_address": "경기도 평택시 진위면 봉남길 89",
+            "refine_num_address": "경기도 평택시 진위면 봉남리 172-1번지",
+            "phone": "031-663-2175",
+            "zip_code": "17712",
+            "latitude": 37.098344852,
+            "longitude": 127.09308634,
+            "last_updated_at": "2019-06-30"
         }
     ]
 
@@ -204,37 +566,26 @@
 
     function addPosition(data){
         var dict={}
-        dict['content']='<div id="ti"><div id="title">' + data["name"] +
+        dict['content']='<div id="ti"><div id="title" onclick="marker_info('+ data["latitude"]+','+data["longitude"]+');">' + data["name"] +
             '</div><div id="industry">' + data["industry_name"] +
             '</div></div><div id="address">' + data["refine_road_address"] +
             '</div><div id="num">' + data["phone"] + 
             '</div>';
         dict['latlng']=new kakao.maps.LatLng(data["latitude"],data["longitude"]);
         dict['city']= data["city"]["code"];
+        dict['info']=data["name"]+data["industry_name"]+data["refine_road_address"]+data["refine_num_address"]+data["phone"];
         positions.push(dict)
     }
 
     ///////////////////////////////////////////////////////////
 
-    var MARKER_WIDTH = 34, // 기본, 클릭 마커의 너비
-    MARKER_HEIGHT = 37, // 기본, 클릭 마커의 높이
-    OFFSET_X = 12, // 기본, 클릭 마커의 기준 X좌표
-    OFFSET_Y = MARKER_HEIGHT, // 기본, 클릭 마커의 기준 Y좌표
-    OVER_MARKER_WIDTH = 44, // 오버 마커의 너비
-    OVER_MARKER_HEIGHT = 44, // 오버 마커의 높이
-    OVER_OFFSET_X = 8, // 오버 마커의 기준 X좌표
-    OVER_OFFSET_Y = OVER_MARKER_HEIGHT, // 오버 마커의 기준 Y좌표
-    SPRITE_MARKER_URL = "{% static 'image/marker.png' %}", // 스프라이트 마커 이미지 URL https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markers_sprites2.png
-    SPRITE_WIDTH = 126, // 스프라이트 이미지 너비
-    SPRITE_HEIGHT = 146, // 스프라이트 이미지 높이
-    SPRITE_GAP = 8; // 스프라이트 이미지에서 마커간 간격
-
-    var markerSize = new kakao.maps.Size(MARKER_WIDTH, MARKER_HEIGHT), // 기본, 클릭 마커의 크기
-        markerOffset = new kakao.maps.Point(OFFSET_X, OFFSET_Y), // 기본, 클릭 마커의 기준좌표
-        overMarkerSize = new kakao.maps.Size(OVER_MARKER_WIDTH, OVER_MARKER_HEIGHT), // 오버 마커의 크기
-        overMarkerOffset = new kakao.maps.Point(OVER_OFFSET_X, OVER_OFFSET_Y), // 오버 마커의 기준 좌표
-        spriteImageSize = new kakao.maps.Size(SPRITE_WIDTH, SPRITE_HEIGHT); // 스프라이트 이미지의 크기
-
+    var normimageSrc = '{% static "image/marker1.png" %}', // 마커이미지의 주소입니다    
+        normimageSize = new kakao.maps.Size(100, 100), // 마커이미지의 크기입니다
+        normimageOption = {offset: new kakao.maps.Point(81, 30)}, // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+        clicimageSrc = '{% static "image/marker2.png" %}', // 마커이미지의 주소입니다    
+        clicimageSize = new kakao.maps.Size(100, 100), // 마커이미지의 크기입니다
+        clicimageOption = {offset: new kakao.maps.Point(81, 30)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+    
     var selectedMarker = null; // 클릭한 마커를 담을 변수
 
     // 지도 위에 마커를 표시합니다
@@ -243,13 +594,13 @@
         addMarker(positions[i].latlng, positions[i].content, positions[i].city);
     }
 
-    // 마커를 생성하고 지도 위에 표시하고, 마커에 mouseover, mouseout, click 이벤트를 등록하는 함수입니다
+    // 마커를 생성하고 지도 위에 표시하고, 마커에 click 이벤트를 등록하는 함수입니다
     function addMarker(position, con, citycode) {
 
-        // 기본 마커이미지, 오버 마커이미지, 클릭 마커이미지를 생성합니다
-        var normalImage = createMarkerImage(markerSize, markerOffset, new kakao.maps.Point(0, 0)),
-            overImage = createMarkerImage(overMarkerSize, overMarkerOffset, new kakao.maps.Point((MARKER_WIDTH + SPRITE_GAP) * 2, 0));
-        
+        // 기본 마커이미지, 클릭 마커이미지를 생성합니다
+        var normalImage = new kakao.maps.MarkerImage(normimageSrc, normimageSize, normimageOption),
+            clickImage = new kakao.maps.MarkerImage(clicimageSrc, clicimageSize, clicimageOption);
+
         // 마커를 생성하고 이미지는 기본 마커 이미지를 사용합니다
         var marker = new kakao.maps.Marker({
             map: map,
@@ -275,35 +626,131 @@
                 !!selectedMarker && selectedMarker.setImage(selectedMarker.normalImage);
 
                 // 현재 클릭된 마커의 이미지는 클릭 이미지로 변경합니다
-                marker.setImage(overImage);
+                marker.setImage(clickImage);
             }
 
             // 클릭된 마커를 현재 클릭된 마커 객체로 설정합니다
             selectedMarker = marker;
 
             // 해당 마커의 상세내용을 보여줍니다
-            div_show(marker.getTitle());
+            detail_show(marker.getTitle());
 
             //해당 마커의 도시를 보여줍니다
             city_show(marker.getAltitude());
+
+            result.style.display = "none";
         });
 
-    }
+        // 현재위치에 해당하는 마커정보가 있다면 보여줍니다.
+        if (position.equals(currentLatlng)){
+            if (!selectedMarker || selectedMarker !== marker) {
 
+                // 클릭된 마커 객체가 null이 아니면
+                // 클릭된 마커의 이미지를 기본 이미지로 변경하고
+                !!selectedMarker && selectedMarker.setImage(selectedMarker.normalImage);
 
-    // MakrerImage 객체를 생성하여 반환하는 함수입니다
-    function createMarkerImage(markerSize, offset, spriteOrigin) {
-        var markerImage = new kakao.maps.MarkerImage(
-            SPRITE_MARKER_URL, // 스프라이트 마커 이미지 URL
-            markerSize, // 마커의 크기
-            {
-                offset: offset, // 마커 이미지에서의 기준 좌표
-                spriteOrigin: spriteOrigin, // 스트라이프 이미지 중 사용할 영역의 좌상단 좌표
-                spriteSize: spriteImageSize // 스프라이트 이미지의 크기
+                // 현재 클릭된 마커의 이미지는 클릭 이미지로 변경합니다
+                marker.setImage(clickImage);
+                selectedMarker = marker;
             }
-        );
-        return markerImage;
+            // 해당 마커의 상세내용을 보여줍니다
+            detail_show(marker.getTitle());
+            //해당 마커의 도시를 보여줍니다
+            city_show(marker.getAltitude());
+        };
+        
     }
+
+
+    /////////////////////////////
+    // search 
+    function addResult(title) {
+        $("#lg").append("<li class='list-group-item' id='sr'>" + title + "</li>");
+    } 
+
+    function search(){
+        // 이전내용 지우기
+        $(function(){
+            $('#lg').empty();
+        });
+
+        // 결과창 띄우기, detail 숨기기
+        detail.style.display = "none";
+        city.style.display = "none";
+        result.style.display = "";
+        sb.style.display = "";
+
+        // 검색어 받기
+        var inputs = document.getElementById("input").value.split(" ");
+
+        for (var i=0; i<positions.length; i++){
+            if(inputs[1]){
+                if(positions[i].info.indexOf(inputs[0])!=-1 && positions[i].info.indexOf(inputs[1])!=-1){
+                    addResult(positions[i].content);
+                }
+            }
+            else if(positions[i].info.indexOf(inputs[0])!=-1){
+                addResult(positions[i].content);
+            } 
+        }
+    }
+
+    /////////////////////////////
+    // 가게명 눌렀을 때 해당 마커로 지도 이동 & 정보 띄우기
+    function marker_info(latitude,longitude){
+        location.href="?"+latitude+","+longitude;
+        result.style.display = "none";
+    }
+
+    ////////////////////////////
+    // 지도 레벨 얻기
+
+
+    // 지도가 확대 또는 축소되면 마지막 파라미터로 넘어온 함수를 호출하도록 이벤트를 등록합니다
+    kakao.maps.event.addListener(map, 'zoom_changed', function() {        
+        getInfo();
+
+        
+    });
+
+    // 마우스 드래그로 지도 이동이 완료되었을 때 마지막 파라미터로 넘어온 함수를 호출하도록 이벤트를 등록합니다
+    kakao.maps.event.addListener(map, 'dragend', function() {        
+        getInfo();
+        
+    });
+
+    function getInfo() {
+        // 지도의 현재 중심좌표를 얻어옵니다 
+        var center = map.getCenter(); 
+        
+        // 지도의 현재 레벨을 얻어옵니다
+        var level = map.getLevel();
+
+        // 지도의 현재 영역을 얻어옵니다 
+        var bounds = map.getBounds();
+        
+        // 영역의 남서쪽 좌표를 얻어옵니다 
+        var swLatLng = bounds.getSouthWest(); 
+        
+        // 영역의 북동쪽 좌표를 얻어옵니다 
+        var neLatLng = bounds.getNorthEast(); 
+        
+        // 영역정보를 문자열로 얻어옵니다. ((남,서), (북,동)) 형식입니다
+        var boundsStr = bounds.toString();
+        
+        
+        var message = '지도 중심좌표는 위도 ' + center.getLat() + ',\n';
+        message += '경도 ' + center.getLng() + ' 이고 \n';
+        message += '지도 레벨은 ' + level + ' 입니다 \n \n';
+        message += '지도의 남서쪽 좌표는 ' + swLatLng.getLat() + ', ' + swLatLng.getLng() + ' 이고 \n';
+        message += '북동쪽 좌표는 ' + neLatLng.getLat() + ', ' + neLatLng.getLng() + ' 입니다';
+        //alert(message);
+        
+        // 개발자도구를 통해 직접 message 내용을 확인해 보세요.
+        // ex) console.log(message);
+    }
+
+    
 
 </script>
 </body>

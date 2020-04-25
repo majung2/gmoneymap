@@ -25,56 +25,88 @@ body{
     width:100%;
     height:100%;
 }
-.nav, #detail{
+
+/* nav */ 
+
+.nav, #detail, #current{
     position:absolute; 
     z-index:2;
 } 
 .nav{
+    top:8px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     width:100%;
     height:50px;
-    background-color: rgba(0, 28, 87, 0.1);
+    border-radius: 13px;
+    background-color: rgba(255, 255, 255, 0.8);
     box-shadow: 0px 1px 20px 3px rgb(187, 187, 187);
 }
 #nav_button{
     height:60%;
-    width:10%;
-    padding: 0 8px 0 10px;
+    width:5%;
+    padding: 0 7px;
+    transform: translateY(1px);
 }
+
+#current{
+    bottom:0;
+    right:0;
+    height:70px;
+}
+
+/* ê²€ìƒ‰ */
+input:focus { outline:none; }
 .search{
-    width:70%;
+    width:90%;
     display: flex;
     justify-content: space-between;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 0.2);
     border-radius: 10px;
-    border: 3px solid rgb(0, 28, 87); 
+    margin: 0 5px 0 0; 
 }
-#search_box{
+#input{
     width:80%;
     border:0;
     background: none;
-    padding: 0 0 0 5px;
-
+    padding: 0 0 0 10px;
+    font-size: 15px;
+    display: table-cell; vertical-align: middle
 }
 #search_button{
-    max-width:60px;
-    width:20%;
-    background: rgb(0, 28, 87);
-    color: white;
-    border: 2px solid rgb(0, 28, 87); 
+    margin: 0 10px 0 0;
+    padding: 0 0 0 12px;
+    max-width:50px;
+    width:15%;
+    background: rgba(255, 255, 255, 0.1);
+    color: rgb(0, 28, 87);
+    border-left: 1px solid rgb(0, 28, 87);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
-
 .search_result{
-    position:absolute; 
+    position: absolute; 
     z-index:3;
     top: 60px;
     width:95%;
     margin:2.5%;
-    max-height: 60%;
-    background-color: white;
+    overflow: hidden;
 }
+.scrollBlind{
+    position:fixed;
+    width:100%;
+    height:100%;
+    max-height: 500px;
+    overflow-y: scroll;
+}
+.list-group{
+    width:95%;
+}
+
+
+/* detail box */
 
 #city{
     position:absolute; 
@@ -84,17 +116,17 @@ body{
     right: 10px;
     opacity: 0.3;
 }
-/* detail box */
+
 #detail{
     bottom: 0;
     width:100%;
     background-color: white;
     padding:4%;
-    box-shadow: 0px -1px 20px 3px rgb(187, 187, 187);
-    border-radius: 10px 10px 0 0;
+    box-shadow: 0px -1px 50px 3px rgb(187, 187, 187);
+    border-radius: 13px;
 
     display: inline-block;
-    border-bottom: 10px solid rgb(0, 28, 87); 
+    border-bottom: 6px solid rgb(0, 28, 87); 
 
 }
 #ti{
@@ -104,8 +136,8 @@ body{
 }
 #title{
     color:rgb(0, 28, 87);
-    font-size: 25px;
-    font-weight: 800;
+    font-size: 18px;
+    font-weight: 700;
 }
 #industry{
     color: gray;
@@ -117,116 +149,116 @@ body{
     color:rgb(53, 53, 53); 
 }
 
-/* µµ½Ã ÀÌ¹ÌÁö, ¹øÈ£´Â °¢ µµ½Ã ÄÚµå¹øÈ£ */
-.city1{ /* ¾çÆò */
+/* ë„ì‹œ ì´ë¯¸ì§€, ë²ˆí˜¸ëŠ” ê° ë„ì‹œ ì½”ë“œë²ˆí˜¸ */
+.city1{ /* ì–‘í‰ */
     width: 100px; height: 100px;
     background: url(../image/css_sprites.png) -10px -10px;
 }
-.city2{ /* ÀÇÁ¤ºÎ */
+.city2{ /* ì˜ì •ë¶€ */
     width: 100px; height: 100px;
     background: url(../image/css_sprites.png) -130px -10px;
 }
-.city3{ /* È­¼º */
+.city3{ /* í™”ì„± */
     width: 100px; height: 100px;
     background: url(../image/css_sprites.png)  -10px -130px;
 }
-.city4{ /* ±¤ÁÖ */
+.city4{ /* ê´‘ì£¼ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -130px -130px;
 }
-.city5{ /* ¼ö¿ø */
+.city5{ /* ìˆ˜ì› */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -250px -10px;
 }
-.city6{ /* ¿©ÁÖ */
+.city6{ /* ì—¬ì£¼ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -250px -130px;
 }
-.city7{ /* ÀÎÃµ */
+.city7{ /* ì¸ì²œ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -10px -250px;
 }
-.city8{ /* ±¸¸® */
+.city8{ /* êµ¬ë¦¬ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -130px -250px;
 }
-.city9{ /* ¾È»ê */
+.city9{ /* ì•ˆì‚° */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -250px -250px;
 }
-.city10{ /* ¿¬Ãµ */
+.city10{ /* ì—°ì²œ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -370px -10px;
 }
-.city11{ /* ÆÄÁÖ */
+.city11{ /* íŒŒì£¼ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -370px -130px;
 }
-.city12{ /* °¡Æò */
+.city12{ /* ê°€í‰ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -370px -250px;
 }
-.city13{ /* ±ºÆ÷ */
+.city13{ /* êµ°í¬ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -10px -370px;
 }
-.city14{ /* ¾È¼º */
+.city14{ /* ì•ˆì„± */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -130px -370px;
 }
-.city15{ /* ¿À»ê */
+.city15{ /* ì˜¤ì‚° */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -250px -370px;
 }
-.city16{ /* ÆòÅÃ */
+.city16{ /* í‰íƒ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -370px -370px;
 }
-.city17{ /* °í¾ç */
+.city17{ /* ê³ ì–‘ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -490px -10px;
 }
-.city18{ /* ³²¾çÁÖ */
+.city18{ /* ë‚¨ì–‘ì£¼ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -490px -130px;
 }
-.city19{ /* ¾È¾ç */
+.city19{ /* ì•ˆì–‘ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -490px -250px;
 }
-.city20{ /* ¿ëÀÎ */
+.city20{ /* ìš©ì¸ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -490px -370px;
 }
-.city21{ /* Æ÷Ãµ */
+.city21{ /* í¬ì²œ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -10px -490px;
 }
-.city22{ /* °úÃµ */
+.city22{ /* ê³¼ì²œ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -130px -490px;
 }
-.city23{ /* µ¿µÎÃµ */
+.city23{ /* ë™ë‘ì²œ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -250px -490px;
 }
-.city24{ /* ¾çÁÖ */
+.city24{ /* ì–‘ì£¼ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -370px -490px;
 }
-.city25{ /* ÀÇ¿Õ */
+.city25{ /* ì˜ì™• */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -490px -490px;
 }
-.city26{ /* ÇÏ³² */
+.city26{ /* í•˜ë‚¨ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -610px -10px;
 }
-.city27{ /* ±¤¸í */
+.city27{ /* ê´‘ëª… */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -610px -130px;
 }
-.city28{ /* ºÎÃµ */
+.city28{ /* ë¶€ì²œ */
     width: 100px; height: 100px;
     background: url('css_sprites.png') -610px -250px;
 }
