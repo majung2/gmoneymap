@@ -21,7 +21,7 @@
 <body>
     <div id="map" onclick="detail_hide();"></div> 
 
-    <!-- nav바: 뒤로가기, 검색창, 현위치다시받기 -->
+    <!-- nav바: 뒤로가기, 검색창 -->
     <div class="nav"> 
         <div id="nav_button">
             <a href="{% url 'home' %}"><img src="{% static 'image/back.png' %}" height="60%"></a>
@@ -30,7 +30,6 @@
             <input id="input" type="text" placeholder="가게명/주소/업종 키워드2개" maxlength="20" onkeypress="search();">
             <input type="submit" id="search_button" onclick="search();" value="검색">
         </div>
-        <!-- <img src="{% static 'image/renew.png' %}" style="margin: 2px 2px 0 0;" height="90%" onclick="currentloc();"> -->
     </div>
 
     <!-- 검색결과 -->
@@ -41,6 +40,7 @@
         </div>
     </div>
     
+    <!-- 현위치 -->
     <img src="{% static 'image/renew.png' %}" id="current" style="margin: 2px 2px 0 0;" onclick="currentloc();">
 
     <!-- 상세페이지 -->
@@ -77,7 +77,7 @@
         }
     }
             
-    function currentloc() {  //현 위치 다시받기     
+    function currentloc() {  //현위치 다시받기     
         // Geolocation API에 액세스할 수 있는지를 확인
         if (navigator.geolocation) {
             //위치 정보를 얻기
@@ -90,7 +90,6 @@
             alert("현 위치를 받을 수 없습니다.")
             location.href="?37.275050,127.009447";
         }
-        
     }
 
     // 현 위치정보 url로 받기
@@ -125,35 +124,47 @@
         image: currentImage,
     });
 
+    putData(getSWInfo(),getNEInfo()); 
 
     ////////////////////////////////////////////
     //데이터 받기//
     var positions = [];
 
-    function getDatas(sw,ne){
-        positions = [];
-        $.getJSON("http://ec2-100-27-31-8.compute-1.amazonaws.com/api/v1/stores/", 
+    function getData(sw,ne){
+        console.log('getdata');
+        return new Promise(function(resolve, reject){
+            $.getJSON("http://ec2-100-27-31-8.compute-1.amazonaws.com/api/v1/stores/", 
             {   
                 sw_latitude: sw.getLat(),
                 sw_longitude: sw.getLng(),
                 ne_latitude: ne.getLat(),
                 ne_longitude: ne.getLng()
             }, 
-                function (data) {
-                    var dict={}; 
-                    $.each(data, function (key, value) {
-                        dict['content']='<div id="ti"><div id="title" onclick="marker_info('+ value.latitude+','+value.longitude + ');">' + value.name +
-                            '</div><div id="industry">' + value.industry_name +
-                            '</div></div><div id="address">' + value.refine_road_address +
-                            '</div><div id="num">' + value.phone + 
-                            '</div>';
-                        dict['latlng']=new kakao.maps.LatLng(value.latitude,value.longitude);
-                        dict['city']= value.city.code;
-                        dict['info']=value.name+value.industry_name+value.refine_road_address+value.refine_num_address+value.phone;
-                        positions.push(dict);
-                });
-                console.log('resolve');
-            });      
+                function (response) {
+                    resolve(response);
+            });  
+        }); 
+    }
+
+    async function putData(sw,ne){
+        console.log('putdata');
+        var datas = await getData(sw,ne);
+        if (datas){
+            var dict={}; 
+            $.each(datas, function (key, value) {
+                dict['content']='<div id="ti"><div id="title" onclick="marker_info('+ value.latitude+','+value.longitude + ');">' + value.name +
+                    '</div><div id="industry">' + value.industry_name +
+                    '</div></div><div id="address">' + value.refine_road_address +
+                    '</div><div id="num">' + value.phone + 
+                    '</div>';
+                dict['latlng']=new kakao.maps.LatLng(value.latitude,value.longitude);
+                dict['city']= value.city.code;
+                dict['info']=value.name+value.industry_name+value.refine_road_address+value.refine_num_address+value.phone;
+                positions.push(dict);
+            });
+            console.log(positions);
+            showMarker();      
+        }
     }
 
     ///////////////////////////////////////////////////////////
@@ -169,7 +180,6 @@
 
     // 지도 위에 마커를 표시합니다
     function showMarker(){
-        console.log(positions);
         for (var i = 0; i < positions.length; i++) {
             // 마커를 생성하고 지도위에 표시합니다
             addMarker(positions[i].latlng, positions[i].content, positions[i].city);
@@ -287,7 +297,7 @@
     ////////////////////////////
     // 지도가 이동, 확대 또는 축소되면 마지막 파라미터로 넘어온 함수를 호출하도록 이벤트를 등록합니다
     kakao.maps.event.addListener(map, 'bounds_changed', function() {        
-        getDatas(getSWInfo(),getNEInfo());  
+        putData(getSWInfo(),getNEInfo());  
     });
 
 
