@@ -108,7 +108,6 @@
 
 
     //현 위치 표시
-
     var imageSrc = "{% static 'image/current.png' %}"; 
     
     // 현재위치 이미지의 이미지 크기 입니다
@@ -131,7 +130,6 @@
     var positions = [];
 
     function getData(sw,ne){
-        console.log('getdata');
         return new Promise(function(resolve, reject){
             $.getJSON("http://ec2-100-27-31-8.compute-1.amazonaws.com/api/v1/stores/", 
             {   
@@ -147,25 +145,29 @@
     }
 
     async function putData(sw,ne){
-        console.log('putdata');
         var datas = await getData(sw,ne);
         if (datas){
-            var dict={}; 
-            $.each(datas, function (key, value) {
-                dict['content']='<div id="ti"><div id="title" onclick="marker_info('+ value.latitude+','+value.longitude + ');">' + value.name +
-                    '</div><div id="industry">' + value.industry_name +
-                    '</div></div><div id="address">' + value.refine_road_address +
-                    '</div><div id="num">' + value.phone + 
-                    '</div>';
-                dict['latlng']=new kakao.maps.LatLng(value.latitude,value.longitude);
-                dict['city']= value.city.code;
-                dict['info']=value.name+value.industry_name+value.refine_road_address+value.refine_num_address+value.phone;
-                positions.push(dict);
-            });
-            console.log(positions);
-            showMarker();      
+            positions = [];
+            console.log('reset');
+                if (positions.length == 0){
+                $.each(datas, function (key, value) {
+                    var dict={}; 
+                    dict['content']='<div id="ti"><div id="title" onclick="marker_info('+ value.latitude+','+value.longitude + ');">' + value.name +
+                        '</div><div id="industry">' + value.industry_name +
+                        '</div></div><div id="address">' + value.refine_road_address +
+                        '</div><div id="num">' + value.phone + 
+                        '</div>';
+                    dict['latlng']=new kakao.maps.LatLng(value.latitude,value.longitude);
+                    dict['city']= value.city.code;
+                    dict['info']=value.name+value.industry_name+value.refine_road_address+value.refine_num_address+value.phone;
+                    positions.push(dict);
+                });
+                console.log(positions);
+                showMarker();      
+            }
         }
     }
+
 
     ///////////////////////////////////////////////////////////
 
@@ -208,11 +210,11 @@
 
         // 마커에 click 이벤트를 등록합니다
         kakao.maps.event.addListener(marker, 'click', function() {
+            console.log(selectedMarker);
 
             // 클릭된 마커가 없고, click 마커가 클릭된 마커가 아니면
             // 마커의 이미지를 클릭 이미지로 변경합니다
             if (!selectedMarker || selectedMarker !== marker) {
-
                 // 클릭된 마커 객체가 null이 아니면
                 // 클릭된 마커의 이미지를 기본 이미지로 변경하고
                 !!selectedMarker && selectedMarker.setImage(selectedMarker.normalImage);
@@ -236,7 +238,6 @@
         // 현재위치에 해당하는 마커정보가 있다면 보여줍니다.
         if (position.equals(currentLatlng)){
             if (!selectedMarker || selectedMarker !== marker) {
-
                 // 클릭된 마커 객체가 null이 아니면
                 // 클릭된 마커의 이미지를 기본 이미지로 변경하고
                 !!selectedMarker && selectedMarker.setImage(selectedMarker.normalImage);
