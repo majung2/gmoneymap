@@ -11,10 +11,19 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import json
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+
+try:
+    with open('/home/ubuntu/config.json', 'r') as f:
+        loaded_data = json.load(f)
+        for key, value in loaded_data.items():
+            os.environ.setdefault(key, value)
+except FileNotFoundError:
+    pass
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -87,7 +96,7 @@ DATABASES = {
         'USER': os.environ['MYSQL_USER'],
         'PASSWORD': os.environ['MYSQL_PASSWORD'],
         'HOST': os.environ['MYSQL_HOST'],
-        'PORT': os.environ['MYSQL_PORT']
+        'PORT': int(os.environ['MYSQL_PORT'])
     }
 }
 
