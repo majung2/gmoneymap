@@ -3,6 +3,12 @@
 <html>
 <head>
     <meta charset="utf-8">
+    <!-- OG태그 -->
+    <meta property="og:url"                content="" />
+    <meta property="og:type"               content="website" />
+    <meta property="og:title"              content="오디써" />
+    <meta property="og:description"        content="경기도 지역화폐 가맹점 지도" />
+    <meta property="og:image"              content="" />
     <title>오디써</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="{% static 'css/mapstyle.css' %}"> <!--지도적용-->
@@ -56,8 +62,11 @@
         result.style.display = "none";
         current.style.display = "";
 
-        selectedMarker.setImage(selectedMarker.normalImage);
-        selectedMarker = null;
+        if (selectedMarker){
+            selectedMarker.setImage(selectedMarker.normalImage);
+            selectedMarker = null;
+        }
+
     }
 
     //city 정보 보이기
@@ -119,45 +128,32 @@
 
     ////////////////////////////////////////////
     //데이터 받기//
-    var storesJS =[]; //JSON 데이터 받을 배열
-
-    getDatas(getSWInfo(),getNEInfo());
-
-    function getDatas(sw,ne){
-        storesJS =[];
-        $.getJSON("http://ec2-100-27-31-8.compute-1.amazonaws.com:8000/api/v1/stores/", 
-        {   
-            sw_latitude: sw.getLat(),
-            sw_longitude: sw.getLng(),
-            ne_latitude: ne.getLat(),
-            ne_longitude: ne.getLng()
-        }, 
-            function (data) {
-                $.each(data, function (key, value) {
-                    storesJS.push(value);
-            });
-        });
-    }
-
-
-    // 마커를 표시할 위치와 title 객체 배열입니다 
     var positions = [];
 
-    for (var i=0;i<storesJS.length;i++){
-        addPosition(storesJS[i]);
-    }
-
-    function addPosition(storesJS){
-        var dict={}
-        dict['content']='<div id="ti"><div id="title" onclick="marker_info('+ storesJS["latitude"]+','+storesJS["longitude"]+');">' + storesJS["name"] +
-            '</div><div id="industry">' + storesJS["industry_name"] +
-            '</div></div><div id="address">' + storesJS["refine_road_address"] +
-            '</div><div id="num">' + storesJS["phone"] + 
-            '</div>';
-        dict['latlng']=new kakao.maps.LatLng(storesJS["latitude"],storesJS["longitude"]);
-        dict['city']= storesJS["city"]["code"];
-        dict['info']=storesJS["name"]+storesJS["industry_name"]+storesJS["refine_road_address"]+storesJS["refine_num_address"]+storesJS["phone"];
-        positions.push(dict)
+    function getDatas(sw,ne){
+        positions = [];
+        $.getJSON("http://ec2-100-27-31-8.compute-1.amazonaws.com/api/v1/stores/", 
+            {   
+                sw_latitude: sw.getLat(),
+                sw_longitude: sw.getLng(),
+                ne_latitude: ne.getLat(),
+                ne_longitude: ne.getLng()
+            }, 
+                function (data) {
+                    var dict={}; 
+                    $.each(data, function (key, value) {
+                        dict['content']='<div id="ti"><div id="title" onclick="marker_info('+ value.latitude+','+value.longitude + ');">' + value.name +
+                            '</div><div id="industry">' + value.industry_name +
+                            '</div></div><div id="address">' + value.refine_road_address +
+                            '</div><div id="num">' + value.phone + 
+                            '</div>';
+                        dict['latlng']=new kakao.maps.LatLng(value.latitude,value.longitude);
+                        dict['city']= value.city.code;
+                        dict['info']=value.name+value.industry_name+value.refine_road_address+value.refine_num_address+value.phone;
+                        positions.push(dict);
+                });
+                console.log('resolve');
+            });      
     }
 
     ///////////////////////////////////////////////////////////
@@ -172,9 +168,12 @@
     var selectedMarker = null; // 클릭한 마커를 담을 변수
 
     // 지도 위에 마커를 표시합니다
-    for (var i = 0; i < positions.length; i++) {
-        // 마커를 생성하고 지도위에 표시합니다
-        addMarker(positions[i].latlng, positions[i].content, positions[i].city);
+    function showMarker(){
+        console.log(positions);
+        for (var i = 0; i < positions.length; i++) {
+            // 마커를 생성하고 지도위에 표시합니다
+            addMarker(positions[i].latlng, positions[i].content, positions[i].city);
+        }
     }
 
     // 마커를 생성하고 지도 위에 표시하고, 마커에 click 이벤트를 등록하는 함수입니다
@@ -286,9 +285,6 @@
     }
 
     ////////////////////////////
-    // 지도 레벨 얻기
-
-
     // 지도가 이동, 확대 또는 축소되면 마지막 파라미터로 넘어온 함수를 호출하도록 이벤트를 등록합니다
     kakao.maps.event.addListener(map, 'bounds_changed', function() {        
         getDatas(getSWInfo(),getNEInfo());  
