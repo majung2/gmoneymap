@@ -160,7 +160,11 @@
                     dict['latlng']=new kakao.maps.LatLng(value.latitude,value.longitude);
                     dict['city']= value.city.code;
                     dict['info']=value.name+value.industry_name+value.refine_road_address+value.phone;
-                    positions.push(dict);
+                    if (positions.find(c => c.latlng.equals(dict.latlng))){
+                        console.log('중복');
+                    } else {
+                        positions.push(dict);
+                    }
                 });
                 console.log(positions);
                 showMarker();      
@@ -239,8 +243,8 @@
 
     /////////////////////////////
     // search 
-    function addResult(title) {
-        $("#lg").append("<li class='list-group-item' id='sr'>" + title + "</li>");
+    function addResult(content) {
+        $("#lg").append("<li class='list-group-item' id='sr'>" + content + "</li>");
     } 
 
     function search(){
