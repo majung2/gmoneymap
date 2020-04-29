@@ -26,7 +26,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'odso',
-    'rest_framework', # rest framework 등록
 ]
 
 MIDDLEWARE = [
