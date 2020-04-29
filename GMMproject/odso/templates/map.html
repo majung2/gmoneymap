@@ -160,11 +160,7 @@
                     dict['latlng']=new kakao.maps.LatLng(value.latitude,value.longitude);
                     dict['city']= value.city.code;
                     dict['info']=value.name+value.industry_name+value.refine_road_address+value.phone;
-                    if (positions.find(c => c.latlng.equals(dict.latlng))){
-                        console.log('중복');
-                    } else {
-                        positions.push(dict);
-                    }
+                    positions.push(dict);
                 });
                 console.log(positions);
                 showMarker();      
@@ -186,6 +182,7 @@
 
     // 지도 위에 마커를 표시합니다
     function showMarker(){
+        console.log('show');
         for (var i = 0; i < positions.length; i++) {
             // 마커를 생성하고 지도위에 표시합니다
             addMarker(positions[i].latlng, positions[i].content, positions[i].city);
@@ -229,6 +226,7 @@
 
             // 클릭된 마커를 현재 클릭된 마커 객체로 설정합니다
             selectedMarker = marker;
+            console.log(selectedMarker);
 
             // 해당 마커의 상세내용을 보여줍니다
             detail_show(marker.getTitle());
