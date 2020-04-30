@@ -56,9 +56,14 @@
 <script>
     ////// 지도세팅 ////////
     temp=location.href.split("?") // 현 위치정보 url로 받기
-    data=temp[1].split(",")
-    lat = data[0]
-    lon = data[1]
+    if (temp){
+        data=temp[1].split(",")
+        lat = data[0]
+        lon = data[1]
+    }else{
+        lat = 37.275050;
+        lon = 127.009447;
+    }
     
     var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
         mapOption = { 
@@ -102,6 +107,7 @@
     async function putData(sw,ne){
         var datas = await getData(sw,ne);
         if (datas){
+            detail_hide();
             positions = [];
                 if (positions.length == 0){
                 $.each(datas, function (key, value) {
@@ -161,6 +167,7 @@
                 // 현재 클릭된 마커의 이미지는 클릭 이미지로 변경합니다
                 marker.setImage(clickImage);
             }
+
             // 클릭된 마커를 현재 클릭된 마커 객체로 설정합니다
             selectedMarker = marker;
             // 해당 마커의 상세내용을 보여줍니다
@@ -250,7 +257,7 @@
     }
 
     ///// 기타함수 /////
-    function detail_hide() { //지도 클릭 시 detail, city, result 숨기기
+    function detail_hide() { //detail, city, result 숨기기
         $(function(){ $('#dlg').empty();}); //이전 내용 지우기
         detail.style.display = "none"; 
         city.style.display = "none";

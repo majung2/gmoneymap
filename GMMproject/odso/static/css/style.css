@@ -138,4 +138,4 @@ footer{
 /* a tag*/
 a { color:rgb(158, 158, 158); text-decoration: none; }
 a:visited{ color:rgb(158, 158, 158); text-decoration: none; }
-a:hover{ color:rgb(255, 255, 255); text-decoration: none; }
+a:hover, span:hover{ color:rgb(255, 255, 255); text-decoration: none; }
