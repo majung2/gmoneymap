@@ -1,8 +1,294 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-    </head>
-    <body>
-    </body>
+<head>
+    <meta charset="utf-8">
+    <!-- OG태그 -->
+    <meta property="og:url"                content="" />
+    <meta property="og:type"               content="website" />
+    <meta property="og:title"              content="오디써" />
+    <meta property="og:description"        content="경기도 지역화폐 가맹점 지도" />
+    <meta property="og:image"              content="" />
+    <title>오디써</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/mapstyle.css' %}"> <!--지도적용-->
+    <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css"> <!--나눔스퀘어 폰트-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> <!--부트스트랩-->
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3ee8e0692190c94bbe63d42f7dbe7aeb"></script> <!--지도API-->
+    <script src="http://code.jquery.com/jquery-1.11.0.js"></script> <!--현위치 받기, 내용 없애기-->
+</head>
+
+<body>
+    <div id="map" onclick="detail_hide();"></div> 
+
+    <!-- nav바: 뒤로가기, 검색창 -->
+    <div class="nav"> 
+        <div id="nav_button">
+            <a href="{% url 'home' %}"><img src="{% static 'image/back.png' %}" height="60%"></a>
+        </div> 
+        <div class="search">
+            <input id="input" type="text" placeholder="가게명/주소/업종 키워드2개" maxlength="20" onkeypress="search();">
+            <input type="submit" id="search_button" onclick="search();" value="검색">
+        </div>
+    </div>
+
+    <!-- 검색결과 -->
+    <div class="search_result" id="result">
+        <div class="scrollBlind" style="display:none" id="sb">
+            <ul class="list-group" id="lg">
+            </ul>
+        </div>
+    </div>
+    
+    <!-- 현위치 -->
+    <img src="{% static 'image/renew.png' %}" id="current" style="margin: 2px 2px 0 0;" onclick="currentloc();">
+
+    <!-- 상세페이지 -->
+    <div id="city" style="display:none"></div>
+    <div id="detail" style="display:none">
+        <div class="scrollBlind" style="display:none" id="dsb">
+            <ul class="list-group" id="dlg">
+            </ul>
+        </div>
+    </div>
+    
+
+<script>
+    ////// 지도세팅 ////////
+    temp=location.href.split("?") // 현 위치정보 url로 받기
+    data=temp[1].split(",")
+    lat = data[0]
+    lon = data[1]
+    
+    var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
+        mapOption = { 
+            center: new kakao.maps.LatLng(lat,lon), // 지도의 중심좌표
+            level: 2 // 지도의 확대 레벨
+        };
+    var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+    map.setMaxLevel(3); //지도 최대 축소 레벨 제한
+
+    var imageSrc = "{% static 'image/current.png' %}"; //현 위치 표시 이미지 파일
+    var imageSize = new kakao.maps.Size(50, 50); // 현재위치표시 이미지 크기 
+        
+    // 현재위치 이미지를 생성합니다    
+    var currentImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
+    var currentLatlng = new kakao.maps.LatLng(lat, lon);
+    var marker = new kakao.maps.Marker({ 
+        map: map, // 마커를 표시할 지도
+        position: currentLatlng, // 마커를 표시할 위치
+        image: currentImage,
+    });
+
+    /////////////데이터 받기///////////////////
+    putData(getSWInfo(),getNEInfo()); 
+    var positions = [];
+
+    function getData(sw,ne){
+        return new Promise(function(resolve, reject){
+            $.getJSON("http://ec2-100-27-31-8.compute-1.amazonaws.com/api/v1/stores/", 
+            {   
+                sw_latitude: sw.getLat(),
+                sw_longitude: sw.getLng(),
+                ne_latitude: ne.getLat(),
+                ne_longitude: ne.getLng()
+            }, 
+                function (response) {
+                    resolve(response);
+            });  
+        }); 
+    }
+
+    async function putData(sw,ne){
+        var datas = await getData(sw,ne);
+        if (datas){
+            positions = [];
+                if (positions.length == 0){
+                $.each(datas, function (key, value) {
+                    var dict={}; 
+                    dict['content']='<div id="ti"><div id="title" onclick="marker_info('+ value.latitude+','+value.longitude + ');">' + value.name +
+                        '</div><div id="industry">' + value.industry_name +
+                        '</div></div><div id="address">' + value.refine_road_address +
+                        '</div><div id="num">' + value.phone + 
+                        '</div>';
+                    dict['latlng']=new kakao.maps.LatLng(value.latitude,value.longitude);
+                    dict['city']= value.city.code;
+                    dict['info']=value.name+value.industry_name+value.refine_road_address+value.phone;
+                    positions.push(dict);
+                });
+                showMarker();      
+            }
+        }
+    }
+
+    ////////////마커찍기////////////
+    var normimageSrc = '{% static "image/marker1.png" %}', // 마커이미지의 주소입니다    
+        normimageSize = new kakao.maps.Size(43, 44), // 마커이미지의 크기입니다
+        normimageOption = {offset: new kakao.maps.Point(12, 42.4)}, // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+        clicimageSrc = '{% static "image/marker2.png" %}', // 마커이미지의 주소입니다    
+        clicimageSize = new kakao.maps.Size(47.6, 62), // 마커이미지의 크기입니다
+        clicimageOption = {offset: new kakao.maps.Point(26, 60.4)}, // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+        normalImage = new kakao.maps.MarkerImage(normimageSrc, normimageSize, normimageOption), // 기본 마커이미지, 클릭 마커이미지를 생성합니다
+        clickImage = new kakao.maps.MarkerImage(clicimageSrc, clicimageSize, clicimageOption),
+        selectedMarker = null; // 클릭한 마커를 담을 변수
+
+    function showMarker(){ // 지도 위에 마커를 표시합니다
+        for (var i = 0; i < positions.length; i++) {
+            // 마커를 생성하고 지도위에 표시합니다
+            addMarker(positions[i].latlng, positions[i].content, positions[i].city);
+        }
+    }
+
+    function addMarker(position, con, citycode) {  // 마커를 생성하고 지도 위에 표시하고, 마커에 click 이벤트를 등록하는 함수입니다
+        var marker = new kakao.maps.Marker({ // 마커를 생성하고 이미지는 기본 마커 이미지를 사용합니다
+            map: map,
+            position: position,
+            image: normalImage,
+        });
+        marker.setTitle(con); //마커 상세내용
+        marker.setAltitude(citycode); //마커 도시코드
+
+        // 마커 객체에 마커아이디와 마커의 기본 이미지를 추가합니다
+        marker.normalImage = normalImage;
+
+        // 마커에 click 이벤트를 등록합니다
+        kakao.maps.event.addListener(marker, 'click', function() {
+            $(function(){ $('#dlg').empty();}); //이전 내용 지우기
+            if (!selectedMarker || selectedMarker !== marker) {
+                // 클릭된 마커 객체가 null이 아니면
+                // 클릭된 마커의 이미지를 기본 이미지로 변경하고
+                !!selectedMarker && selectedMarker.setImage(selectedMarker.normalImage);
+                // 현재 클릭된 마커의 이미지는 클릭 이미지로 변경합니다
+                marker.setImage(clickImage);
+            }
+            // 클릭된 마커를 현재 클릭된 마커 객체로 설정합니다
+            selectedMarker = marker;
+            // 해당 마커의 상세내용을 보여줍니다
+            detail_show(marker.getTitle());
+            //해당 마커의 도시를 보여줍니다
+            city_show(marker.getAltitude());
+            result.style.display = "none";
+        });        
+
+        // 현재위치에 해당하는 마커정보가 있다면 보여줍니다.
+        if (position.equals(currentLatlng)){
+            if (!selectedMarker || selectedMarker !== marker) {
+                // 클릭된 마커 객체가 null이 아니면
+                // 클릭된 마커의 이미지를 기본 이미지로 변경하고
+                !!selectedMarker && selectedMarker.setImage(selectedMarker.normalImage);
+                // 현재 클릭된 마커의 이미지는 클릭 이미지로 변경합니다
+                marker.setImage(clickImage);
+                selectedMarker = marker;
+            }
+            detail_show(marker.getTitle());
+            city_show(marker.getAltitude());
+        };
+    
+    }
+
+    /////////// 검색 ///////////
+    function addResult(content) { // 검색결과 추가
+        $("#lg").append("<li class='list-group-item' id='sr'>" + content + "</li>");
+    } 
+    function search(){
+        // 이전내용 지우기
+        $(function(){
+            $('#lg').empty();
+        });
+
+        // 결과창 띄우기, detail 숨기기
+        detail.style.display = "none";
+        city.style.display = "none";
+        result.style.display = "";
+        sb.style.display = "";
+
+        // 검색어 받기
+        var inputs = document.getElementById("input").value.split(" ");
+
+        for (var i=0; i<positions.length; i++){
+            if(inputs[1]){
+                if(positions[i].info.indexOf(inputs[0])!=-1 && positions[i].info.indexOf(inputs[1])!=-1){
+                    addResult(positions[i].content);
+                }
+            }
+            else if(positions[i].info.indexOf(inputs[0])!=-1){
+                addResult(positions[i].content);
+            } 
+        }
+    }    
+    function marker_info(latitude,longitude){ // 가게명 눌렀을 때 해당 마커로 지도 이동 & 정보 띄우기
+        location.href="?"+latitude+","+longitude;
+        result.style.display = "none";
+    }
+
+    //// 지도이동 ////
+    kakao.maps.event.addListener(map, 'bounds_changed', function() { // 지도가 이동, 확대 또는 축소되면 마지막 파라미터로 넘어온 함수를 호출하도록 이벤트를 등록합니다
+        detail_hide();
+        putData(getSWInfo(),getNEInfo());  
+    });
+    function getSWInfo() { //지도 남서쪽 좌표 얻기
+        // 지도의 현재 영역을 얻어옵니다 
+        var bounds = map.getBounds();
+        // 영역의 남서쪽 좌표를 얻어옵니다 
+        var swLatLng = bounds.getSouthWest(); // swLatLng.getLat(), swLatLng.getLng()
+        return swLatLng
+    }
+    function getNEInfo(){ //지도 북동쪽 좌표 얻기
+        // 지도의 현재 영역을 얻어옵니다 
+        var bounds = map.getBounds();
+
+        // 영역의 북동쪽 좌표를 얻어옵니다 
+        var neLatLng = bounds.getNorthEast(); // neLatLng.getLat(),neLatLng.getLng()
+        return neLatLng
+    }
+
+    function detail_show(content) { //detail 보이기
+        detail.style.display = "",
+        dsb.style.display = "";
+        $("#dlg").append("<li id='detail_li'>" + content + "</li>");
+        //document.all("detail").innerHTML=content;
+    }
+
+    ///// 기타함수 /////
+    function detail_hide() { //지도 클릭 시 detail, city, result 숨기기
+        $(function(){ $('#dlg').empty();}); //이전 내용 지우기
+        detail.style.display = "none"; 
+        city.style.display = "none";
+        result.style.display = "none";
+        current.style.display = "";
+
+        if (selectedMarker){
+            selectedMarker.setImage(selectedMarker.normalImage);
+            selectedMarker = null;
+        }
+
+    }
+
+    function city_show(code) { //city 정보 보이기
+        city.style.display = "";
+        if (code){
+            document.all("city").innerHTML='<div class="city'+code+'"></div>';
+        }
+    }
+            
+    function currentloc() {  //현위치 다시받기     
+        // Geolocation API에 액세스할 수 있는지를 확인
+        if (navigator.geolocation) {
+            //위치 정보를 얻기
+            navigator.geolocation.getCurrentPosition (function(pos) {
+                var latitude = pos.coords.latitude;
+                var longitude = pos.coords.longitude;
+                location.href="?"+latitude+","+longitude;
+            });
+        } else { // 디폴트위치: 경기도청
+            alert("현 위치를 받을 수 없습니다.")
+            location.href="?37.275050,127.009447";
+        }
+    }
+
+
+    
+
+</script>
+</body>
 </html>
