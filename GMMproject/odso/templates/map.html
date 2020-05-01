@@ -71,7 +71,7 @@
             level: 2 // 지도의 확대 레벨
         };
     var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-    // map.setMaxLevel(5); //지도 최대 축소 레벨 제한
+    map.setMaxLevel(5); //지도 최대 축소 레벨 제한
 
     var imageSrc = "{% static 'image/current.png' %}"; //현 위치 표시 이미지 파일
     var imageSize = new kakao.maps.Size(50, 50); // 현재위치표시 이미지 크기 
