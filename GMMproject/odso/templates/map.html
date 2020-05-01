@@ -4,9 +4,9 @@
 <head>
     <meta charset="utf-8">
     <!-- OG태그 -->
-    <meta property="og:url"                content="" />
+    <meta property="og:url"                content="https://www.odso.kr" />
     <meta property="og:type"               content="website" />
-    <meta property="og:title"              content="오디써" />
+    <meta property="og:title"              content="오디써:경기도 지역화폐 가맹점 지도" />
     <meta property="og:description"        content="경기도 지역화폐 가맹점 지도" />
     <meta property="og:image"              content="" />
     <title>오디써</title>
@@ -15,7 +15,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css"> <!--나눔스퀘어 폰트-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> <!--부트스트랩-->
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3ee8e0692190c94bbe63d42f7dbe7aeb"></script> <!--지도API-->
-    <script src="http://code.jquery.com/jquery-1.11.0.js"></script> <!--현위치 받기, 내용 없애기-->
+    <script src="https://code.jquery.com/jquery-1.11.0.js"></script> <!--현위치 받기, 내용 없애기-->
 </head>
 
 <body>
@@ -56,9 +56,14 @@
 <script>
     ////// 지도세팅 ////////
     temp=location.href.split("?") // 현 위치정보 url로 받기
-    data=temp[1].split(",")
-    lat = data[0]
-    lon = data[1]
+    if (temp){
+        data=temp[1].split(",")
+        lat = data[0]
+        lon = data[1]
+    }else{ //경기도청 좌표
+        lat = 37.275050;
+        lon = 127.009447;
+    }
     
     var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
         mapOption = { 
@@ -86,7 +91,7 @@
 
     function getData(sw,ne){
         return new Promise(function(resolve, reject){
-            $.getJSON("http://ec2-100-27-31-8.compute-1.amazonaws.com/api/v1/stores/", 
+            $.getJSON("https://www.odso.kr/api/v1/stores/", //DB
             {   
                 sw_latitude: sw.getLat(),
                 sw_longitude: sw.getLng(),
@@ -102,6 +107,7 @@
     async function putData(sw,ne){
         var datas = await getData(sw,ne);
         if (datas){
+            detail_hide();
             positions = [];
                 if (positions.length == 0){
                 $.each(datas, function (key, value) {
@@ -161,6 +167,7 @@
                 // 현재 클릭된 마커의 이미지는 클릭 이미지로 변경합니다
                 marker.setImage(clickImage);
             }
+
             // 클릭된 마커를 현재 클릭된 마커 객체로 설정합니다
             selectedMarker = marker;
             // 해당 마커의 상세내용을 보여줍니다
@@ -250,7 +257,7 @@
     }
 
     ///// 기타함수 /////
-    function detail_hide() { //지도 클릭 시 detail, city, result 숨기기
+    function detail_hide() { //detail, city, result 숨기기
         $(function(){ $('#dlg').empty();}); //이전 내용 지우기
         detail.style.display = "none"; 
         city.style.display = "none";

@@ -3,11 +3,17 @@
 <html>
 <head>
     <meta charset="utf-8">
+    <!-- OG태그 -->
+    <meta property="og:url"                content="https://www.odso.kr" />
+    <meta property="og:type"               content="website" />
+    <meta property="og:title"              content="오디써:경기도 지역화폐 가맹점 지도" />
+    <meta property="og:description"        content="경기도 지역화폐 가맹점 지도" />
+    <meta property="og:image"              content="" />
     <title>오디써</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"> 
     <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css"> <!--나눔스퀘어 폰트-->
-    <script src="http://code.jquery.com/jquery-1.11.0.js"></script> <!--현위치 받기-->
+    <script src="https://code.jquery.com/jquery-1.11.0.js"></script> <!--현위치 받기-->
     <script>
         function isMobile() {
         return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
@@ -77,7 +83,7 @@
         
         <p id="info">
         <a href="https://data.gg.go.kr/">데이터 출처 | 경기데이터드림</a><br>
-        <a href="https://github.com/majung2">기획/FE 이미정 </a>| BE 구도원 | <a href="https://www.instagram.com/ji.foto/">DESIGN 이지윤</a><br>문의 | <span OnClick="copy('dlalwjd1417@likelion.org');">dlalwjd1417@likelion.org</span></p>
+        <a href="https://github.com/majung2">기획/FE 이미정 </a>| <a href="https://github.com/cozaro">BE/DEBOPS 구도원</a> | <a href="https://www.instagram.com/ji.foto/">DESIGN/FE 이지윤</a><br><span OnClick="copy('contact@odso.kr');">문의 | contact@odso.kr</span></p>
         <p style="color:gray; font-size:8px;">ⓒ 2020. MAJUNGE All Rights Reserved.</p>
     </footer>
 
