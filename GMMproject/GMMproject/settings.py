@@ -1,19 +1,30 @@
 import os
+import json
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
+try:
+    with open('/home/ubuntu/config.json', 'r') as f:
+        loaded_data = json.load(f)
+        for key, value in loaded_data.items():
+            os.environ.setdefault(key, value)
+except FileNotFoundError:
+    pass
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '2v$!e5q9g%^(95$vo=%of4^-8*vae$=&nd&d2r&484f_981ab-'
+# TODO: new generate SECRET_KEY
+SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+# TODO: webserver host
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -25,6 +36,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
+    'rest_framework',
+    'rest_framework_swagger',
     'odso',
 ]
 
@@ -36,6 +50,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware'
 ]
 
 ROOT_URLCONF = 'GMMproject.urls'
@@ -64,11 +79,17 @@ WSGI_APPLICATION = 'GMMproject.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': os.environ['MYSQL_NAME'],
+        'USER': os.environ['MYSQL_USER'],
+        'PASSWORD': os.environ['MYSQL_PASSWORD'],
+        'HOST': os.environ['MYSQL_HOST'],
+        'PORT': int(os.environ['MYSQL_PORT'])
     }
 }
 
+# CORS https://www.techiediaries.com/django-cors/
+CORS_ORIGIN_ALLOW_ALL = True
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -92,9 +113,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-LANGUAGE_CODE = 'ko'
+LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'Asia/Seoul'
+TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
@@ -107,3 +128,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
