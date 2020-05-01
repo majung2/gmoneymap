@@ -23,42 +23,47 @@ body{
 }
 header{
     margin: 0;
-    padding: 30px 0 0 0;
+    padding: 15px 0 0 0;
     max-height: 250px;
+    margin: 0 auto;
+}
+#gmlogo{
+    width:40px;
 }
 .title{
     margin:2% 0;
+}
+#title{
+    width:150px; 
+}
+#sub_title{
+    width:100%;
+    margin:0 auto;
+    position: absolute;
+    z-index:2;
+    font-size: 13px;
 }
 main{
     height:80%;
 }
 
-.circle5{
-    background-color:rgb(180,225,0,0.8);
-    width:50px;
-    height:50px;
-    border-radius:300px;
-    margin:0 auto;
-    position: absolute;
-    transform: translate(270px,-50px)
-}
 .circle1{
-    background-color:#B4E100;
-    width:180px;
-    height:180px;
+    background-color:rgb(180, 225, 0, 0.9);
+    width:150px;
+    height:150px;
     border-radius:300px;
     margin:0 auto;
     position: relative;
-    transform: translate(-120px,0px)
+    transform: translate(-120px,110px)
 }
 .circle2{
-    background-color:#FF9400;
-    width:120px;
-    height:120px;
+    background-color:rgb(255, 149, 0, 0.8);
+    width:80px;
+    height:80px;
     border-radius:300px;
     margin:0 auto;
     position: absolute;
-    transform: translate(-65px,-95px)
+    transform: translate(-105px,10px)
 }
 .map{
     position: absolute;
@@ -71,13 +76,14 @@ main{
     position: absolute;
     z-index: 2;
     font-weight: 500;
+    font-size: 17px;
     transform: translate(0,30px);
 }
 .main1{
     margin:0;
     height:70%;
     max-height: 300px;
-    padding:25% 0;
+    padding:10% 0;
     display: flex;
     justify-content: center;
     align-items: center;

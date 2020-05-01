@@ -8,13 +8,13 @@
     <meta property="og:type"               content="website" />
     <meta property="og:title"              content="오디써:경기도 지역화폐 가맹점 지도" />
     <meta property="og:description"        content="경기도 지역화폐 가맹점 지도" />
-    <meta property="og:image"              content="" />
+    <meta property="og:image"              content="{% static 'image/ogimage.png' %}" />
     <title>오디써</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"> 
     <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css"> <!--나눔스퀘어 폰트-->
     <script src="https://code.jquery.com/jquery-1.11.0.js"></script> <!--현위치 받기-->
-    <script>
+    <script> 
         function isMobile() {
         return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
         }
@@ -22,17 +22,23 @@
             document.write('<p id="mobile">본 서비스는 모바일에 최적화되어 있습니다.</p>')
         }
     </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-165285698-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-165285698-1');
+    </script>
 </head>
 
 <body>
     <header>
-        <div class="circle5">
-            <!--초록원-->
-        </div>
         <img src="{% static 'image/gmlogo.png' %}" width="50px">
         <div class="title">
-            <img src="{% static 'image/logo.png' %}" width="200px" style="margin:5px;"> 
-            <p style="margin:0;">경기도 지역화폐 어디에 써?<br>가맹점 어디 있어?</p>
+            <img src="{% static 'image/logo.png' %}" id="title"> 
+            <p id="sub_title">경기도 지역화폐 어디에 써?<br>가맹점 어디 있어?</p>
         </div>
     </header>
 
@@ -46,7 +52,7 @@
             </div>
             <p id="gamang"  onclick="currentloc();">주변 가맹점 확인하기</p>
             <div class="map"  onclick="currentloc();">
-                <img src="{% static 'image/map.png' %}" width="200px">
+                <img src="{% static 'image/map.png' %}">
                 <script>
                     function currentloc() {        
                         // Geolocation API에 액세스할 수 있는지를 확인
@@ -83,7 +89,7 @@
         
         <p id="info">
         <a href="https://data.gg.go.kr/">데이터 출처 | 경기데이터드림</a><br>
-        <a href="https://github.com/majung2">기획/FE 이미정 </a>| <a href="https://github.com/cozaro">BE/DEBOPS 구도원</a> | <a href="https://www.instagram.com/ji.foto/">DESIGN/FE 이지윤</a><br><span OnClick="copy('contact@odso.kr');">문의 | contact@odso.kr</span></p>
+        <a href="https://github.com/majung2">기획/FE 이미정 </a>| <a href="https://github.com/cozaro">BE/DEVOPS 구도원</a> | <a href="https://www.instagram.com/ji.foto/">DESIGN/FE 이지윤</a><br><span OnClick="copy('contact@odso.kr');">문의 | contact@odso.kr</span></p>
         <p style="color:gray; font-size:8px;">ⓒ 2020. MAJUNGE All Rights Reserved.</p>
     </footer>
 
