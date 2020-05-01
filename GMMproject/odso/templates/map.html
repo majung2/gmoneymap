@@ -15,7 +15,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css"> <!--나눔스퀘어 폰트-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> <!--부트스트랩-->
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3ee8e0692190c94bbe63d42f7dbe7aeb"></script> <!--지도API-->
-    <script src="http://code.jquery.com/jquery-1.11.0.js"></script> <!--현위치 받기, 내용 없애기-->
+    <script src="https://code.jquery.com/jquery-1.11.0.js"></script> <!--현위치 받기, 내용 없애기-->
 </head>
 
 <body>
@@ -60,7 +60,7 @@
         data=temp[1].split(",")
         lat = data[0]
         lon = data[1]
-    }else{
+    }else{ //경기도청 좌표
         lat = 37.275050;
         lon = 127.009447;
     }
@@ -91,7 +91,7 @@
 
     function getData(sw,ne){
         return new Promise(function(resolve, reject){
-            $.getJSON("http://ec2-100-27-31-8.compute-1.amazonaws.com/api/v1/stores/", 
+            $.getJSON("https://www.odso.kr/api/v1/stores/", 
             {   
                 sw_latitude: sw.getLat(),
                 sw_longitude: sw.getLng(),
