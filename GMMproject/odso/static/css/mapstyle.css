@@ -79,6 +79,7 @@ input:focus { outline:none; }
     width:15%;
     background: rgba(255, 255, 255, 0.1);
     color: rgb(0, 28, 87);
+    border-radius: 0;
     border-left: 1px solid rgb(0, 28, 87);
     border-right: 1px solid rgba(255, 255, 255, 0.1);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
