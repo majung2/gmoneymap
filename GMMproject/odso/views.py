@@ -7,6 +7,11 @@ from odso.models import City, Store
 from odso.serializers import CitySerializer, StoreSerializer
 
 
+class HealthyCheckView(APIView):
+    def get(self, *args, **kwargs):
+        return Response()
+
+
 class HomeView(APIView):
     renderer_classes = [TemplateHTMLRenderer]
     template_name = 'home.html'
