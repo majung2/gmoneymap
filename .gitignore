@@ -39,3 +39,6 @@ myvenv/
 .history
 
 # End of https://www.gitignore.io/api/virtualenv,visualstudiocode
+
+.GMMproject/.idea/
+.GMMproject/.idea/*
