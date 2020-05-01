@@ -2,6 +2,7 @@ from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import generics
+from rest_framework.exceptions import ValidationError
 
 from odso.models import City, Store
 from odso.serializers import CitySerializer, StoreSerializer
@@ -43,10 +44,26 @@ class StoreList(generics.ListAPIView):
 
     def get_queryset(self):
         city_code = int(self.request.query_params.get('city_code', 0))
-        sw_latitude = float(self.request.query_params.get('sw_latitude', 37.265))
-        sw_longitude = float(self.request.query_params.get('sw_longitude', 126.995))
-        ne_latitude = float(self.request.query_params.get('ne_latitude', 37.275))
-        ne_longitude = float(self.request.query_params.get('ne_longitude', 127.005))
+        sw_latitude = self.request.query_params.get('sw_latitude', None)
+        sw_longitude = self.request.query_params.get('sw_longitude', None)
+        ne_latitude = self.request.query_params.get('ne_latitude', None)
+        ne_longitude = self.request.query_params.get('ne_longitude', None)
+
+        try:
+            sw_latitude = float(sw_latitude)
+            sw_longitude = float(sw_longitude)
+            ne_latitude = float(ne_latitude)
+            ne_longitude = float(ne_longitude)
+        except (TypeError, ValueError):
+            raise ValidationError
+
+        c_latitude = (ne_latitude + sw_latitude) / 2
+        c_longitude = (ne_longitude + sw_longitude) / 2
+
+        sw_latitude = sw_latitude if sw_latitude >= c_latitude - 0.005 else c_latitude - 0.005
+        sw_longitude = sw_longitude if sw_longitude >= c_longitude - 0.005 else c_longitude - 0.005
+        ne_latitude = ne_latitude if ne_latitude <= c_latitude + 0.005 else c_latitude + 0.005
+        ne_longitude = ne_longitude if ne_longitude <= c_longitude + 0.005 else c_longitude + 0.005
 
         queryset = Store.objects.all()
         queryset = queryset.filter(city__code__exact=city_code) if city_code else queryset
