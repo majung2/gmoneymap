@@ -91,7 +91,7 @@
 
     function getData(sw,ne){
         return new Promise(function(resolve, reject){
-            $.getJSON("https://www.odso.kr/api/v1/stores/", 
+            $.getJSON("https://www.odso.kr/api/v1/stores/", //DB
             {   
                 sw_latitude: sw.getLat(),
                 sw_longitude: sw.getLng(),
