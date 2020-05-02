@@ -3,13 +3,15 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <!-- OG태그 -->
     <meta property="og:url"                content="https://www.odso.kr" />
     <meta property="og:type"               content="website" />
     <meta property="og:title"              content="오디써:경기도 지역화폐 가맹점 지도" />
     <meta property="og:description"        content="경기도 지역화폐 가맹점 지도" />
-    <meta property="og:image"              content="" />
+    <meta property="og:image"              content="{% static 'image/ogimage.png' %}" />
     <title>오디써</title>
+    <meta name="description" content="경기도 지역화폐 가맹점 지도">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'image/favicon-16x16.png'">
+    <!---->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="{% static 'css/mapstyle.css' %}"> <!--지도적용-->
     <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css"> <!--나눔스퀘어 폰트-->
