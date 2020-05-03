@@ -3,14 +3,15 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <!-- OG태그 -->
     <meta property="og:url"                content="https://www.odso.kr" />
     <meta property="og:type"               content="website" />
     <meta property="og:title"              content="오디써:경기도 지역화폐 가맹점 지도" />
     <meta property="og:description"        content="경기도 지역화폐 가맹점 지도" />
     <meta property="og:image"              content="{% static 'image/ogimage.png' %}" />
     <title>오디써</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="경기도 지역화폐 가맹점 지도">
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon"/>
+    <!---->
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"> 
     <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css"> <!--나눔스퀘어 폰트-->
     <script src="https://code.jquery.com/jquery-1.11.0.js"></script> <!--현위치 받기-->
@@ -43,6 +44,29 @@
     </header>
 
     <main>
+        <!-- 모달 안내창 -->
+        <div id="modal" style="display:none";>
+            <div class="modal_content">
+                <p id="modal_txt">안녕하세요, 오디써팀입니다.<br>
+                저희 서비스에 대한 관심 정말 감사합니다. <br>주요 문의사항에 대해 안내드립니다.<br><br>
+                <span style="font-size: 16px; font-weight:600;">1. '주변 가맹점 확인하기'로 안 넘어가요!</span><br> 
+                위치 설정을 허용으로 바꿔주세요. 그래도 안 된다면 다른 브라우저에서 사용해 주세요.
+                <br>
+                <span style="font-size: 10px;">
+                *안드로이드: 설정 앱>개인>위치 정보 엑세스>내 위치 정보 사용<br>
+                *iOS: 설정 앱>개인 정보 보호>위치 서비스>허용
+                </span>
+                <br><br>
+                <span style="font-size: 16px; font-weight:600;">2. 가맹점 정보가 안 보여요!</span><br>
+                같은 위치에 여러개(3개이상)의 가게정보가 등록되어 있는 경우 카드가 겹쳐져 안 보일 수 있습니다. 해당 위치에서 가게명으로 검색 해보세요.<br>
+                <span style="font-size: 10px;">그래도 없다면 contact@odso.kr로 문의 부탁드립니다.</span>
+                <br><br>
+                검색을 비롯한 전반적인 기능 개선 사항은 지속적으로 업데이트 할 예정입니다. 조금만 기다려주시면 감사하겠습니다!</p>   
+            <button type="button" id="modal_close_btn" onclick="modal();">X</button>
+            </div>
+            <div class="modal_layer"></div>
+        </div>
+
         <div class="main1">
             <div class="circle2">
                 <!--주황 원-->
@@ -53,23 +77,6 @@
             <p id="gamang"  onclick="currentloc();">주변 가맹점 확인하기</p>
             <div class="map"  onclick="currentloc();">
                 <img src="{% static 'image/map.png' %}">
-                <script>
-                    function currentloc() {        
-                        // Geolocation API에 액세스할 수 있는지를 확인
-                        if (navigator.geolocation) {
-                            //위치 정보를 얻기
-                            navigator.geolocation.getCurrentPosition (function(pos) {
-                                var latitude = pos.coords.latitude;
-                                var longitude = pos.coords.longitude;
-                                location.href="map?"+latitude+","+longitude;
-                            });
-                        } else { // 디폴트위치: 경기도청
-                            alert("현 위치를 받을 수 없습니다.")
-                            location.href="map?37.275050,127.009447";
-                        }
-                        
-                    }
-                </script>
             </div>
         </div>
         
@@ -94,6 +101,29 @@
     </footer>
 
     <script>
+        function modal(action){
+            if (action){
+                document.getElementById("modal").style.display="block";
+            }else {
+            document.getElementById("modal").style.display="none";
+            }
+        }
+
+        function currentloc() {        
+            // Geolocation API에 액세스할 수 있는지를 확인
+            if (navigator.geolocation) {
+                //위치 정보를 얻기
+                navigator.geolocation.getCurrentPosition (function(pos) {
+                    var latitude = pos.coords.latitude;
+                    var longitude = pos.coords.longitude;
+                    location.href="map?"+latitude+","+longitude;
+                });
+            } else { // 디폴트위치: 경기도청
+                alert("현 위치를 받을 수 없습니다.")
+                location.href="map?37.275050,127.009447";
+            }
+        }
+
         function copy(text) {
             $("body").append($("<textarea id='_copy_for_textarea'/>"));
             $("#_copy_for_textarea").val(text)[0].select();
@@ -101,6 +131,8 @@
             $("#_copy_for_textarea").remove();
             alert(text + "가 복사 되었습니다.");
           }
+
+
     </script>
 </body>
 </html>
