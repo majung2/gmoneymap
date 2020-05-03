@@ -17,10 +17,10 @@ body{
     position: absolute;
     text-align: center;
     font-size: 15px;
-    /* navy ver & white ver */
     color:white; background-color: #005EB1;
-    /* background-color: white; color: #005dac; */
 }
+
+/* header */
 header{
     margin: 0;
     padding: 15px 0 0 0;
@@ -43,6 +43,8 @@ header{
     z-index:2;
     font-size: 13px;
 }
+
+/* main */
 main{
     height:80%;
 }
@@ -76,24 +78,39 @@ main{
     position: absolute;
     z-index: 2;
     font-weight: 500;
-    font-size: 17px;
+    font-size: 15px;
     transform: translate(0,30px);
 }
 .main1{
     margin:0;
     height:70%;
     max-height: 300px;
-    padding:10% 0;
+    padding:8% 0;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.main2{
-    height:30%;
-    padding: 2% 0 1% 0;
-    font-size: 10px;
-    max-height: 200px;
 
+/* footer */
+footer{
+    position: absolute;
+    bottom: 0;
+    width:100%;
+    min-height: 60px;
+}
+.main2{
+    min-height:40px;
+    margin:3x;
+    font-size: 10px;
+    margin:1% 0;
+}
+#link{
+    width:100px;
+    background-color: rgb(255, 149, 0,0.9);
+    border-radius: 20px;
+    padding: 5px 10px;
+    color:rgb(255, 255, 255);
+    font-size:10px; 
 }
 .circle3{
     background-color:rgb(225, 148, 0,0.8);
@@ -113,15 +130,8 @@ main{
     position: absolute;
     transform: translate(320px,80px);
 }
-
-footer{
-    position: absolute;
-    bottom: 0;
-    width:100%;
-    min-height: 60px;
-}
 #info, #mobile{
-    margin:0;
+    margin:5px 0;
     font-size: 10px;
     color:rgb(158, 158, 158);
 }
@@ -131,6 +141,7 @@ a { color:rgb(158, 158, 158); text-decoration: none; }
 a:visited{ color:rgb(158, 158, 158); text-decoration: none; }
 a:hover, span:hover{ color:rgb(255, 255, 255); text-decoration: none; }
 
+/* modal */
 #modal {
   position:relative;
   width:100%;
@@ -152,11 +163,9 @@ a:hover, span:hover{ color:rgb(255, 255, 255); text-decoration: none; }
     margin:0 auto;
     padding:10px 10px;
     background:#fff;
-    /* border:2px solid #666; */
     border-radius: 10px;
     text-align: initial;
 }
-
 #modal .modal_layer {
   position:fixed;
   top:0;
@@ -166,7 +175,6 @@ a:hover, span:hover{ color:rgb(255, 255, 255); text-decoration: none; }
   background:rgba(0, 0, 0, 0.5);
   z-index:-1;
 }
-
 #modal_txt{
     color: black;
     font-size:14px;
