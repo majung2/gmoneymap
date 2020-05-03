@@ -51,8 +51,8 @@ main{
 
 .circle1{
     background-color:rgb(180, 225, 0, 0.9);
-    width:150px;
-    height:150px;
+    width:130px;
+    height:130px;
     border-radius:300px;
     margin:0 auto;
     position: relative;
@@ -65,7 +65,7 @@ main{
     border-radius:300px;
     margin:0 auto;
     position: absolute;
-    transform: translate(-105px,10px)
+    transform: translate(-105px,20px)
 }
 .map{
     position: absolute;
