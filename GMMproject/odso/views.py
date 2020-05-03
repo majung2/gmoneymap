@@ -5,7 +5,7 @@ from rest_framework import generics
 from rest_framework.exceptions import ValidationError
 
 from odso.models import City, Store
-from odso.serializers import CitySerializer, StoreSerializer
+from odso.serializers import CitySerializer, StoreListSerializer, StoreDetailSerializer
 
 
 class HealthyCheckView(APIView):
@@ -40,10 +40,10 @@ class CityDetail(generics.RetrieveAPIView):
 
 
 class StoreList(generics.ListAPIView):
-    serializer_class = StoreSerializer
+    serializer_class = StoreListSerializer
 
     def get_queryset(self):
-        city_code = int(self.request.query_params.get('city_code', 0))
+
         sw_latitude = self.request.query_params.get('sw_latitude', None)
         sw_longitude = self.request.query_params.get('sw_longitude', None)
         ne_latitude = self.request.query_params.get('ne_latitude', None)
@@ -57,26 +57,28 @@ class StoreList(generics.ListAPIView):
         except (TypeError, ValueError):
             raise ValidationError
 
-        c_latitude = (ne_latitude + sw_latitude) / 2
-        c_longitude = (ne_longitude + sw_longitude) / 2
+        queryset = Store.objects.all().values('id', 'name', 'industry_name', 'city_id',
+                                              'refine_road_address', 'phone', 'latitude', 'longitude',)
+        c_latitude = (sw_latitude + ne_latitude) / 2
+        c_longitude = (sw_longitude + ne_longitude) / 2
 
-        sw_latitude = sw_latitude if sw_latitude >= c_latitude - 0.0015 else c_latitude - 0.0015
-        sw_longitude = sw_longitude if sw_longitude >= c_longitude - 0.0015 else c_longitude - 0.0015
-        ne_latitude = ne_latitude if ne_latitude <= c_latitude + 0.0015 else c_latitude + 0.0015
-        ne_longitude = ne_longitude if ne_longitude <= c_longitude + 0.0015 else c_longitude + 0.0015
+        limit = 0.002
 
-        queryset = Store.objects.all()
-        queryset = queryset.filter(city__code__exact=city_code) if city_code else queryset
+        sw_latitude = sw_latitude if sw_latitude >= (c_latitude - limit) else c_latitude - limit
+        sw_longitude = sw_longitude if sw_longitude >= (c_longitude - limit) else c_longitude - limit
+        ne_latitude = ne_latitude if ne_latitude <= (c_latitude + limit) else c_latitude + limit
+        ne_longitude = ne_longitude if ne_longitude <= (c_longitude + limit) else c_longitude + limit
+
         queryset = queryset.filter(latitude__gte=sw_latitude)
-        queryset = queryset.filter(longitude__gte=sw_longitude)
         queryset = queryset.filter(latitude__lte=ne_latitude)
+        queryset = queryset.filter(longitude__gte=sw_longitude)
         queryset = queryset.filter(longitude__lte=ne_longitude)
         return queryset
 
 
 class StoreDetail(generics.RetrieveAPIView):
     queryset = Store.objects.all()
-    serializer_class = StoreSerializer
+    serializer_class = StoreDetailSerializer
 
 
 # from django.db import connection
