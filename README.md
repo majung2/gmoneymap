@@ -1,7 +1,7 @@
 # gmoneymap
 경기 지역화폐 가맹점 지도 프로젝트 <오디써>
 
-주소: www.odso.kr
+주소: www.odso.kr (현재 서버 내림)
 
 제작자
 이미정 | 기획, FE, 홍보
